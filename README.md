@@ -1,4 +1,4 @@
-# Portfólio — Elizandra Straub
+# Portfólio — MKS Marketing
 
 Site estático (HTML + CSS + JS), sem instalação. Basta abrir `index.html` ou publicar a pasta em qualquer hospedagem (GitHub Pages, Netlify, Vercel…).
 
