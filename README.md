@@ -34,3 +34,9 @@ Categorias sem projetos mostram automaticamente o aviso "chegam em breve".
 ## Foto na seção Sobre
 
 Salve sua foto em `img/` e siga o comentário dentro da seção **Sobre** do `index.html`.
+
+## Logo
+
+- `img/logo-mks.png` — logo preta recortada (usada no topo e no rodapé)
+- `img/logo-mks-branco.png` — versão branca, para fundos escuros
+- `img/logo-mks-original.png` — arquivo original enviado
