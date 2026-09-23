@@ -24,7 +24,7 @@ O conteúdo das páginas de serviço (título, texto, "O que pode incluir") fica
 | Número e mensagem do WhatsApp | `js/config.js` → `WHATSAPP_NUMERO`, `WHATSAPP_MENSAGEM` |
 | Textos de uma página de serviço | `js/config.js` → `PAGINAS` |
 | Projetos | `js/config.js` → `PROJETOS` |
-| Textos da página inicial (início, sobre, contato) | `index.html` |
+| Textos da página inicial (início e contato) | `index.html` |
 | Cores e fontes | `css/style.css` → bloco `:root` no topo |
 
 ## Adicionar um projeto

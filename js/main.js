@@ -50,7 +50,6 @@
       <ul class="nav__menu" id="menu">
         <li><a href="index.html#servicos">Serviços</a></li>
         <li><a href="index.html#projetos">Projetos</a></li>
-        <li><a href="index.html#sobre">Sobre</a></li>
         <li><a href="#contato">Contato</a></li>
         <li><a href="#" data-whatsapp class="btn btn--pequeno">Orçamento</a></li>
       </ul>
