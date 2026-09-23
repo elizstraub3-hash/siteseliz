@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Elizandra Straub · Sites e convites digitais</title>
+  <meta name="description" content="Elizandra Straub cria sites personalizados e convites digitais para casamentos, aniversários infantis, 15 anos e eventos." />
+  <meta name="theme-color" content="#f7f3ee" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ================= CABEÇALHO ================= -->
+  <header class="topo">
+    <nav class="nav container" aria-label="Principal">
+      <a href="#inicio" class="marca">Elizandra <em>Straub</em></a>
+
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="menu" aria-label="Abrir menu">
+        <span></span><span></span>
+      </button>
+
+      <ul class="nav__menu" id="menu">
+        <li><a href="#projetos">Projetos</a></li>
+        <li><a href="#servicos">Serviços</a></li>
+        <li><a href="#sobre">Sobre</a></li>
+        <li><a href="#contato">Contato</a></li>
+        <li><a href="#" data-whatsapp class="btn btn--pequeno">Orçamento</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- ================= INÍCIO ================= -->
+    <section class="hero" id="inicio">
+      <div class="container hero__grid">
+        <div class="hero__texto">
+          <p class="sobretitulo">Design de sites e convites digitais</p>
+          <h1>Sites e convites para <em>momentos especiais</em></h1>
+          <p class="hero__intro">
+            Crio sites personalizados e convites digitais para casamentos,
+            aniversários infantis, 15 anos e eventos — cada um pensado para
+            o estilo, a idade e a história de quem vai celebrar.
+          </p>
+          <div class="hero__acoes">
+            <a href="#" data-whatsapp class="btn">Solicitar orçamento</a>
+            <a href="#projetos" class="link-seta">Ver projetos</a>
+          </div>
+        </div>
+
+        <!-- Composição decorativa: celular (site) + cartão (convite) -->
+        <div class="hero__arte" aria-hidden="true">
+          <div class="arte-cartao">
+            <span class="arte-linha arte-linha--curta"></span>
+            <span class="arte-titulo">Você é nosso convidado</span>
+            <span class="arte-linha"></span>
+            <span class="arte-linha arte-linha--media"></span>
+          </div>
+          <div class="arte-celular">
+            <div class="arte-celular__tela">
+              <span class="arte-bloco"></span>
+              <span class="arte-titulo arte-titulo--p">Celebre com a gente</span>
+              <span class="arte-linha"></span>
+              <span class="arte-linha arte-linha--media"></span>
+              <span class="arte-botao"></span>
+            </div>
+          </div>
+          <span class="arte-selo">sites · convites</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PROJETOS ================= -->
+    <section class="secao" id="projetos">
+      <div class="container">
+        <header class="secao__topo">
+          <p class="sobretitulo">Portfólio</p>
+          <h2>Projetos</h2>
+        </header>
+
+        <!-- Os filtros e os cards são gerados a partir de js/config.js -->
+        <div class="filtros" id="filtros" role="group" aria-label="Filtrar projetos por categoria"></div>
+
+        <div class="grade" id="grade-projetos" aria-live="polite"></div>
+
+        <p class="projetos-vazio" id="projetos-vazio" hidden>
+          Novos projetos de <span data-categoria></span> chegam em breve.<br />
+          Quer ser um dos primeiros? <a href="#" data-whatsapp>Fale comigo</a>.
+        </p>
+      </div>
+    </section>
+
+    <!-- ================= SERVIÇOS ================= -->
+    <section class="secao secao--tom" id="servicos">
+      <div class="container">
+        <header class="secao__topo">
+          <p class="sobretitulo">O que eu crio</p>
+          <h2>Serviços</h2>
+        </header>
+
+        <div class="servicos">
+          <article class="servico">
+            <span class="servico__num">01</span>
+            <h3>Sites personalizados</h3>
+            <p>
+              Um site exclusivo para o seu evento, com as informações
+              organizadas, identidade própria e navegação pensada para o celular.
+            </p>
+          </article>
+
+          <article class="servico">
+            <span class="servico__num">02</span>
+            <h3>Convites digitais interativos</h3>
+            <p>
+              Convites para abrir no celular, com botões e links que levam
+              direto ao que o convidado precisa — pronto para enviar pelo WhatsApp.
+            </p>
+          </article>
+
+          <article class="servico">
+            <span class="servico__num">03</span>
+            <h3>Convites digitais estáticos</h3>
+            <p>
+              Uma arte única, bonita e objetiva, em imagem, ideal para
+              compartilhar com rapidez nas conversas e nas redes sociais.
+            </p>
+          </article>
+        </div>
+
+        <div class="ocasioes">
+          <p>Artes para diferentes temas, idades e estilos:</p>
+          <ul>
+            <li>Casamento</li>
+            <li>Aniversário infantil</li>
+            <li>15 anos</li>
+            <li>Eventos</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SOBRE ================= -->
+    <section class="secao" id="sobre">
+      <div class="container sobre">
+        <!-- Para usar sua foto: coloque o arquivo em img/ e troque a div abaixo por
+             <img src="img/sua-foto.jpg" alt="Elizandra Straub" class="sobre__foto"> -->
+        <div class="sobre__foto sobre__foto--vazia" aria-hidden="true"><span>E</span></div>
+
+        <div class="sobre__texto">
+          <p class="sobretitulo">Sobre</p>
+          <h2>Olá, eu sou a Elizandra</h2>
+          <!-- Edite os parágrafos abaixo com a sua apresentação -->
+          <p>
+            Sou designer de sites e convites digitais. Meu trabalho é
+            transformar a ideia de cada celebração em uma peça com
+            personalidade — seja um casamento, um aniversário infantil, uma
+            festa de 15 anos ou um evento.
+          </p>
+          <p>
+            Cada projeto começa ouvindo você: o tema, o estilo, as cores e o
+            que precisa ser comunicado aos convidados. A partir daí, crio um
+            design exclusivo, fácil de usar e bonito em qualquer tela.
+          </p>
+          <a href="#" data-whatsapp class="btn">Vamos conversar</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CONTATO ================= -->
+    <section class="contato" id="contato">
+      <div class="container contato__caixa">
+        <p class="sobretitulo">Contato</p>
+        <h2>Vamos criar algo especial para o seu momento?</h2>
+        <p>Me chame no WhatsApp e conte um pouco sobre o seu evento.</p>
+        <a href="#" data-whatsapp class="btn btn--claro">
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M12.04 2a9.9 9.9 0 0 0-8.5 14.98L2 22l5.17-1.5A9.9 9.9 0 1 0 12.04 2Zm0 18.06c-1.5 0-2.98-.4-4.26-1.17l-.3-.18-3.07.9.92-2.99-.2-.31a8.2 8.2 0 1 1 6.91 3.75Zm4.5-6.14c-.25-.12-1.46-.72-1.69-.8-.22-.08-.39-.12-.55.12-.16.25-.63.8-.77.97-.14.16-.28.18-.53.06a6.7 6.7 0 0 1-3.34-2.92c-.25-.43.25-.4.72-1.34.08-.16.04-.3-.02-.43l-.76-1.82c-.2-.48-.4-.41-.55-.42h-.47a.9.9 0 0 0-.65.3 2.74 2.74 0 0 0-.86 2.04c0 1.2.88 2.37 1 2.53.13.17 1.73 2.64 4.2 3.7 1.56.67 2.17.73 2.95.61.47-.07 1.46-.6 1.66-1.18.2-.58.2-1.08.14-1.18-.06-.1-.22-.16-.47-.28Z"/></svg>
+          Chamar no WhatsApp
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="rodape">
+    <div class="container rodape__grid">
+      <span class="marca">Elizandra <em>Straub</em></span>
+      <span>Sites e convites digitais</span>
+    </div>
+  </footer>
+
+  <script src="js/config.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
