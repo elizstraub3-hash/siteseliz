@@ -176,24 +176,31 @@ const PAGINAS = [
               mostrar só a imagem, sem botão.                              */
 const PROJETOS = [
   {
-    nome: "Fernanda & Carlos",
-    tipo: "Site de casamento",
-    paginas: ["sites", "casamento"],
-    imagem: "",
-    link: "",
+    nome: "Francieli & Carlos Eduardo",
+    tipo: "Convite interativo de casamento",
+    paginas: ["casamento"],
+    imagem: "img/projetos/francieli-carlos.jpg",
+    link: "", // convite real: https://convitefrancarlos.vercel.app/
   },
   {
-    nome: "Casamentos.com",
-    tipo: "Site personalizado",
-    paginas: ["sites"],
-    imagem: "",
-    link: "",
+    nome: "Fernanda & Alex",
+    tipo: "Site de casamento · Casamentos.com",
+    paginas: ["casamento", "sites"],
+    imagem: "img/projetos/fernanda-alex.jpg",
+    link: "", // site real: https://casamentos-com.vercel.app/
   },
   {
-    nome: "Cláudia & Oseias",
-    tipo: "Site de casamento",
-    paginas: ["sites", "casamento"],
-    imagem: "",
-    link: "",
+    nome: "Claudia & Oséias",
+    tipo: "Convite interativo · Jantar de celebração",
+    paginas: ["eventos"],
+    imagem: "img/projetos/claudia-oseias.jpg",
+    link: "", // convite real: https://claudia-e-oseias.vercel.app/jantar.html
+  },
+  {
+    nome: "Lidiane & Celio",
+    tipo: "Convite interativo · Jantar de celebração",
+    paginas: ["eventos"],
+    imagem: "img/projetos/lidiane-celio.jpg",
+    link: "", // convite real: https://convite-lidiane-celio.vercel.app/jantar.html
   },
 ];
