@@ -331,3 +331,7 @@ p { margin: 0 0 1em; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
   html { scroll-behavior: auto; }
 }
+
+/* Assinatura do rodapé */
+.rodape__assinatura { margin: 0; font-size: .95rem; letter-spacing: .03em; }
+.rodape__assinatura .marca { margin-left: .2rem; }
