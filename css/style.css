@@ -209,17 +209,46 @@ p { margin: 0 0 1em; }
   animation: surgir .45s ease both;
 }
 .card:hover { transform: translateY(-4px); box-shadow: var(--sombra); }
-.card__midia { aspect-ratio: 4 / 5; overflow: hidden; background: var(--fundo-tom); }
-.card__midia img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s; }
-.card:hover .card__midia img { transform: scale(1.04); }
-.card__midia--vazia {
+.card__midia {
+  aspect-ratio: 4 / 5;
   display: grid; place-items: center;
-  background: linear-gradient(155deg, #f1f1f1, #d9d9d9);
+  background: #ececec;
+  overflow: hidden;
 }
-.card__inicial {
-  font-family: var(--serifa); font-style: italic;
-  font-size: 6rem; color: rgba(255, 255, 255, .8);
+
+/* ---------- Mockups (celular e notebook) ---------- */
+.mockup { transition: transform .5s; }
+.card:hover .mockup { transform: translateY(-6px); }
+.mockup__tela { position: relative; overflow: hidden; background: #fff; }
+.mockup__tela img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; }
+.mockup__tela--vazia {
+  display: grid; place-items: center;
+  background: linear-gradient(155deg, #fafafa, #dcdcdc);
 }
+.mockup__tela--vazia span { font-family: var(--serifa); font-style: italic; font-size: 4.5rem; color: #fff; }
+
+.mockup--celular {
+  height: 84%; aspect-ratio: 9 / 19.5;
+  padding: 7px; border-radius: 30px;
+  background: #111;
+  box-shadow: 0 24px 40px -22px rgba(0, 0, 0, .55);
+}
+.mockup--celular .mockup__tela { height: 100%; border-radius: 24px; }
+
+.mockup--notebook { width: 88%; }
+.mockup--notebook .mockup__tela {
+  aspect-ratio: 16 / 10;
+  border: 8px solid #111; border-bottom-width: 12px;
+  border-radius: 10px 10px 0 0;
+  box-shadow: 0 24px 40px -22px rgba(0, 0, 0, .55);
+}
+.mockup--notebook::after {
+  content: ""; display: block;
+  height: 10px; margin: 0 -6%;
+  background: linear-gradient(#d4d4d4, #a9a9a9);
+  border-radius: 0 0 12px 12px;
+}
+
 .card__corpo { padding: 1.5rem 1.6rem 1.8rem; }
 .card__categoria {
   font-size: .74rem; letter-spacing: .2em; text-transform: uppercase;
@@ -237,20 +266,30 @@ p { margin: 0 0 1em; }
 @keyframes surgir { from { opacity: 0; transform: translateY(12px); } }
 
 /* ---------- Serviços ---------- */
+.grupo-servicos + .grupo-servicos { margin-top: 3rem; }
+.grupo-servicos__titulo {
+  font-family: var(--sans); font-size: .78rem; font-weight: 500;
+  letter-spacing: .22em; text-transform: uppercase;
+  color: var(--texto-suave); margin-bottom: 1.1rem;
+}
 .servicos { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.4rem; }
+.servicos--3 { grid-template-columns: repeat(3, 1fr); }
 .servico {
+  display: flex; flex-direction: column;
   background: var(--superficie);
   border-radius: var(--raio);
-  padding: 2.4rem 2rem;
+  padding: 2.2rem 2rem 2rem;
+  text-decoration: none;
+  border: 1px solid transparent;
+  transition: border-color .25s, transform .25s, box-shadow .25s;
 }
-.servico__num { display: block; font-family: var(--serifa); font-size: 1.1rem; color: var(--acento); margin-bottom: 1.4rem; }
-.servico p { color: var(--texto-suave); margin: 0; }
-
-.servico__tags { display: flex; flex-wrap: wrap; gap: .4rem; list-style: none; padding: 0; margin: 1.2rem 0 0; }
-.servico__tags li {
-  font-family: var(--serifa); font-style: italic; font-size: 1rem;
-  padding: .1rem .75rem; border: 1px solid var(--texto); border-radius: 999px;
+.servico:hover { border-color: var(--texto); transform: translateY(-3px); box-shadow: var(--sombra); }
+.servico p { color: var(--texto-suave); margin: 0 0 1.6rem; }
+.servico__link {
+  margin-top: auto; font-size: .85rem; letter-spacing: .05em;
+  border-bottom: 1px solid var(--texto); align-self: flex-start; padding-bottom: 1px;
 }
+.servico__link::after { content: " →"; }
 
 .extras { margin-top: 4rem; }
 .extras__titulo { text-align: center; font-size: 1.9rem; margin-bottom: 1.6rem; }
@@ -264,6 +303,31 @@ p { margin: 0 0 1em; }
 }
 .extras__lista strong { font-weight: 500; }
 .extras__lista span { color: var(--texto-suave); font-size: .95rem; }
+
+/* ---------- Páginas de serviço ---------- */
+.pag-hero { padding: clamp(2.5rem, 6vw, 5rem) 0 clamp(3.5rem, 8vw, 6rem); }
+.pag-hero__grid { display: grid; grid-template-columns: 1.2fr .8fr; gap: 4rem; align-items: center; }
+.voltar {
+  display: inline-block; margin-bottom: 2rem;
+  font-size: .85rem; letter-spacing: .04em; color: var(--texto-suave); text-decoration: none;
+}
+.voltar:hover { color: var(--texto); }
+.inclui {
+  border: 1px solid var(--texto); border-radius: var(--raio);
+  padding: 2.2rem 2rem;
+}
+.inclui__titulo { font-size: 1.7rem; margin-bottom: 1rem; }
+.inclui ul { list-style: none; margin: 0; padding: 0; }
+.inclui li { padding: .8rem 0 .8rem 1.6rem; border-top: 1px solid var(--linha); position: relative; }
+.inclui li::before { content: "—"; position: absolute; left: 0; color: var(--texto-suave); }
+
+.outros { display: flex; flex-wrap: wrap; justify-content: center; gap: .7rem; }
+.outros__item {
+  font-family: var(--serifa); font-size: 1.3rem; font-style: italic;
+  padding: .4rem 1.4rem; border: 1px solid var(--linha); border-radius: 999px;
+  text-decoration: none; transition: border-color .2s, background .2s, color .2s;
+}
+.outros__item:hover { background: var(--escuro); border-color: var(--escuro); color: #fff; }
 
 /* ---------- Sobre ---------- */
 .sobre { display: grid; grid-template-columns: .85fr 1.15fr; gap: 5rem; align-items: center; }
@@ -300,9 +364,10 @@ p { margin: 0 0 1em; }
   .hero__grid { grid-template-columns: 1fr; gap: 3rem; }
   .hero__arte { height: 400px; max-width: 460px; width: 100%; margin-inline: auto; }
   .grade { grid-template-columns: repeat(2, 1fr); gap: 1.6rem; }
-  .servicos { grid-template-columns: repeat(2, 1fr); }
+  .servicos, .servicos--3 { grid-template-columns: repeat(2, 1fr); }
   .extras__lista { grid-template-columns: 1fr; }
   .sobre { grid-template-columns: 1fr; gap: 3rem; }
+  .pag-hero__grid { grid-template-columns: 1fr; gap: 3rem; }
   .sobre__foto { max-width: 360px; margin-inline: auto; }
 }
 
@@ -339,8 +404,8 @@ p { margin: 0 0 1em; }
   .filtros { justify-content: flex-start; flex-wrap: nowrap; overflow-x: auto; margin-inline: -16px; padding: 0 16px 4px; scrollbar-width: none; }
   .filtros::-webkit-scrollbar { display: none; }
   .filtro { flex: none; }
-  .servico { padding: 2rem 1.6rem; }
-  .servicos { grid-template-columns: 1fr; }
+  .servico { padding: 1.8rem 1.6rem; }
+  .servicos, .servicos--3 { grid-template-columns: 1fr; }
   .rodape__grid { justify-content: center; text-align: center; flex-direction: column; gap: .3rem; }
 }
 

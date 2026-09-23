@@ -12,26 +12,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
-<body>
+<body data-pagina="inicio">
 
-  <!-- ================= CABEÇALHO ================= -->
-  <header class="topo">
-    <nav class="nav container" aria-label="Principal">
-      <a href="#inicio" class="marca marca--logo"><img src="img/logo-mks.png" alt="MKS Marketing" width="900" height="549" /></a>
-
-      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="menu" aria-label="Abrir menu">
-        <span></span><span></span>
-      </button>
-
-      <ul class="nav__menu" id="menu">
-        <li><a href="#projetos">Projetos</a></li>
-        <li><a href="#servicos">Serviços</a></li>
-        <li><a href="#sobre">Sobre</a></li>
-        <li><a href="#contato">Contato</a></li>
-        <li><a href="#" data-whatsapp class="btn btn--pequeno">Orçamento</a></li>
-      </ul>
-    </nav>
-  </header>
+  <!-- Cabeçalho e rodapé são gerados por js/main.js (iguais em todas as páginas) -->
+  <div id="topo"></div>
 
   <main>
 
@@ -82,7 +66,7 @@
           <h2>Projetos</h2>
         </header>
 
-        <!-- Os filtros e os cards são gerados a partir de js/config.js -->
+        <!-- Os filtros e os cards são gerados a partir de js/config.js (PAGINAS e PROJETOS) -->
         <div class="filtros" id="filtros" role="group" aria-label="Filtrar projetos por categoria"></div>
 
         <div class="grade" id="grade-projetos" aria-live="polite"></div>
@@ -102,37 +86,16 @@
           <h2>Serviços</h2>
         </header>
 
-        <!-- Serviços principais -->
-        <div class="servicos">
-          <article class="servico">
-            <span class="servico__num">01</span>
-            <h3>Criação de sites</h3>
-            <p>Sites institucionais e páginas personalizadas.</p>
-          </article>
+        <!-- Os cards abaixo são gerados a partir de PAGINAS em js/config.js,
+             e cada um leva para a página do serviço -->
+        <div class="grupo-servicos">
+          <h3 class="grupo-servicos__titulo">Para negócios</h3>
+          <div class="servicos" id="servicos-negocios"></div>
+        </div>
 
-          <article class="servico">
-            <span class="servico__num">02</span>
-            <h3>Lojas online</h3>
-            <p>Vitrines com produtos e estrutura de compra.</p>
-          </article>
-
-          <article class="servico">
-            <span class="servico__num">03</span>
-            <h3>Catálogos online</h3>
-            <p>Produtos organizados para consulta e pedido.</p>
-          </article>
-
-          <article class="servico">
-            <span class="servico__num">04</span>
-            <h3>Convites digitais</h3>
-            <p>Convites estáticos e interativos para diferentes eventos.</p>
-            <ul class="servico__tags">
-              <li>Casamento</li>
-              <li>Infantil</li>
-              <li>15 anos</li>
-              <li>Eventos</li>
-            </ul>
-          </article>
+        <div class="grupo-servicos">
+          <h3 class="grupo-servicos__titulo">Para celebrações</h3>
+          <div class="servicos servicos--3" id="servicos-celebracoes"></div>
         </div>
 
         <!-- Serviços complementares — apague um <li> para retirar do site -->
@@ -190,13 +153,7 @@
     </section>
   </main>
 
-  <footer class="rodape">
-    <div class="container rodape__grid">
-      <img src="img/logo-mks.png" alt="MKS Marketing" class="rodape__logo" width="900" height="549" />
-      <p class="rodape__assinatura">Projetos criados por MKS Marketing</p>
-      <span>Sites, convites digitais e design para marcas e momentos especiais.</span>
-    </div>
-  </footer>
+  <div id="rodape"></div>
 
   <script src="js/config.js"></script>
   <script src="js/main.js"></script>
