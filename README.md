@@ -67,6 +67,11 @@ Cada comemoração tem a sua página, com:
    No casamento: Convite básico (R$ 85,00) e Convite com painel (R$ 95,00).
 3. **Como funciona** — em `passos` (ou `PASSOS_CONVITE`, o padrão).
 
+A página de **Lojas online** usa o mesmo formato: a loja de roupas (neneve.vercel.app)
+nas referências e o valor de R$ 750,00 com painel. Uma referência sem `imagem` aparece
+como um cartão preto com o link "Ver o site funcionando"; ao colocar um print em
+`imagem`, ele aparece no lugar, com zoom.
+
 ## Adicionar uma página de serviço
 
 1. Em `js/config.js`, copie um bloco da lista `PAGINAS` e troque as informações (o `id` vira o nome do arquivo).

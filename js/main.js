@@ -192,10 +192,10 @@
       if (!alvo) continue;
       PAGINAS.filter((p) => p.grupo === grupo).forEach((p) =>
         alvo.append(
-          el("a", { class: "servico", href: p.id + ".html" + (grupo === "celebracoes" ? "#referencias" : "") },
+          el("a", { class: "servico", href: p.id + ".html" + (p.planos ? "#referencias" : "") },
             el("h3", {}, p.nome),
             el("p", {}, p.resumo),
-            el("span", { class: "servico__link" }, grupo === "celebracoes" ? "Ver convites" : "Ver página")
+            el("span", { class: "servico__link" }, grupo === "celebracoes" ? "Ver convites" : p.planos ? "Ver trabalhos" : "Ver página")
           )
         )
       );
@@ -206,9 +206,16 @@
   function criarSlider(referencias) {
     const trilho = el("div", { class: "slider__trilho", tabindex: "0", "aria-label": "Trabalhos já feitos — arraste para o lado" },
       ...referencias.map((r, i) =>
-        el("div", { class: "slide", "aria-roledescription": "slide" },
-          midiaComZoom("slide__midia", criarMockup({ nome: "Referência " + (i + 1), imagem: r.imagem }, "celular"), r.imagem, "Trabalho já feito")
-        )
+        r.imagem
+          ? el("div", { class: "slide", "aria-roledescription": "slide" },
+              midiaComZoom("slide__midia", criarMockup({ nome: "Referência " + (i + 1), imagem: r.imagem }, "celular"), r.imagem, "Trabalho já feito")
+            )
+          : el("a", { class: "slide slide--link", href: r.link, target: "_blank", rel: "noopener", "aria-roledescription": "slide" },
+              el("div", { class: "slide__midia" },
+                el("span", { class: "slide__rotulo" }, r.titulo || "Trabalho já feito"),
+                el("span", { class: "link-seta" }, "Ver o site funcionando")
+              )
+            )
       )
     );
     const anterior = el("button", { type: "button", class: "slider__seta", "aria-label": "Anterior" }, "←");
@@ -267,10 +274,10 @@
           el("ul", { class: "plano__lista" }, ...plano.inclui.map((item) => el("li", {}, item))),
           el("a", {
             class: "btn" + (plano.destaque ? " btn--claro" : ""),
-            href: whatsUrl(`Olá! Vi o site e gostaria de fazer o convite de ${p.nome.toLowerCase()} — ${plano.nome} (${plano.preco}).`),
+            href: whatsUrl(`Olá! Vi o site e tenho interesse em: ${p.nome} — ${plano.nome} (${plano.preco}).`),
             target: "_blank",
             rel: "noopener",
-          }, "Quero o " + plano.nome.toLowerCase())
+          }, plano.botao || "Quero o " + plano.nome.toLowerCase())
         )
       )
     );
@@ -279,7 +286,13 @@
   /* ---------- Páginas de serviço ---------- */
   function montarPaginaServico(p) {
     document.title = `${p.nome} · MKS Marketing`;
-    const ehConvite = p.grupo === "celebracoes" && p.planos;
+    // Páginas com "planos" mostram: trabalhos já feitos + valores (convites, lojas…)
+    const ehConvite = Boolean(p.planos);
+    const textos = {
+      referencias: "Alguns convites que já criei, para inspirar. O tema é escolhido por vocês — cada convite é feito do zero. Toque para ampliar.",
+      planos: "O que vai no convite",
+      ...p.textos,
+    };
     const referencias = REFERENCIAS.filter((r) => r.paginas.includes(p.id));
 
     // Nas páginas de convite, o quadro ao lado do título mostra os valores
@@ -289,7 +302,7 @@
           el("ul", {}, ...p.planos.map((plano) =>
             el("li", {}, el("span", {}, plano.nome), el("strong", {}, plano.preco))
           )),
-          el("span", { class: "servico__link" }, "Ver o que vai no convite")
+          el("span", { class: "servico__link" }, "Ver " + textos.planos.toLowerCase())
         )
       : el("div", { class: "inclui" },
           el("h2", { class: "inclui__titulo" }, "O que pode incluir"),
@@ -324,9 +337,7 @@
               el("p", { class: "sobretitulo" }, "Referências"),
               el("h2", {}, "Trabalhos já feitos"),
               el("p", { class: "secao__intro" },
-                referencias.length
-                  ? "Alguns convites que já criei, para inspirar. O tema é escolhido por vocês — cada convite é feito do zero. Toque para ampliar."
-                  : "Novas referências chegam em breve. O tema é escolhido por vocês — cada convite é feito do zero.")
+                referencias.length ? textos.referencias : "Novos trabalhos chegam em breve.")
             )
           ),
           referencias.length ? criarSlider(referencias) : null
@@ -335,7 +346,7 @@
           el("div", { class: "container" },
             el("header", { class: "secao__topo" },
               el("p", { class: "sobretitulo" }, "Valores"),
-              el("h2", {}, "O que vai no convite")
+              el("h2", {}, textos.planos)
             ),
             criarPlanos(p)
           )
@@ -343,7 +354,7 @@
       );
     }
 
-    const passos = p.passos || (ehConvite ? PASSOS_CONVITE : null);
+    const passos = p.passos || (p.grupo === "celebracoes" ? PASSOS_CONVITE : null);
     if (passos) {
       secoes.push(
         el("section", { class: "secao secao--tom" },
@@ -388,7 +399,7 @@
         ),
         el("div", { class: "outros" },
           ...PAGINAS.filter((x) => x.id !== p.id).map((x) =>
-            el("a", { class: "outros__item", href: x.id + ".html" + (x.grupo === "celebracoes" ? "#referencias" : "") }, x.nome)
+            el("a", { class: "outros__item", href: x.id + ".html" + (x.planos ? "#referencias" : "") }, x.nome)
           )
         )
       )

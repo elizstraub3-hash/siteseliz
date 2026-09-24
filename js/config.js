@@ -67,6 +67,31 @@ const PAGINAS = [
     ],
     mockup: "celular",
     orcamento: "loja online",
+    textos: {
+      referencias: "Uma loja que já criei, para você ver como fica. Cada loja é feita com a identidade da sua marca.",
+      planos: "O que vai na loja",
+    },
+    planos: [
+      {
+        nome: "Loja online com painel",
+        resumo: "A sua loja completa, com um painel para você mesma cuidar dos produtos.",
+        preco: "R$ 750,00",
+        botao: "Quero a minha loja",
+        inclui: [
+          "Vitrine de produtos com fotos e descrições",
+          "Organização por categorias",
+          "Pedido pelo WhatsApp",
+          "Layout pensado para o celular",
+          "Painel para cadastrar e editar os produtos",
+        ],
+      },
+    ],
+    passos: [
+      ["Conte sobre a sua marca", "Logo, cores, produtos e como você quer organizar a loja."],
+      ["Envie os produtos", "Fotos, descrições, tamanhos e preços."],
+      ["Aprove a loja", "Você confere tudo antes de publicar."],
+      ["Comece a vender", "Receba o link da loja e cuide dos produtos pelo painel."],
+    ],
   },
   {
     id: "catalogos",
@@ -110,6 +135,9 @@ const PAGINAS = [
      valores (planos) com o que vai no convite, e o "Como funciona".
      planos  → cada plano tem nome, resumo, preco e a lista "inclui".
                destaque: "texto do selo" deixa o plano em evidência.
+               botao: texto do botão (opcional).
+               Qualquer página com "planos" ganha este formato (ex.: lojas).
+     textos  → (opcional) { referencias, planos }: textos da página
      passos  → "Como funciona" (sem este campo, usa PASSOS_CONVITE) */
   {
     id: "casamento",
@@ -260,13 +288,17 @@ const PASSOS_CONVITE = [
    para ampliar. NÃO aparecem na página inicial.
 
    paginas → em qual página aparece: "casamento", "infantil",
-             "quinze-anos" ou "aniversarios"
-   imagem  → print do convite no celular (em img/projetos/)          */
+             "quinze-anos", "aniversarios", "lojas"…
+   imagem  → print da tela no celular (em img/projetos/)
+   link    → (opcional) site no ar; usado quando ainda não há imagem
+   titulo  → (opcional) texto do cartão quando não há imagem           */
 const REFERENCIAS = [
   { paginas: ["casamento"], imagem: "img/projetos/francieli-carlos.jpg" }, // convitefrancarlos.vercel.app
   { paginas: ["casamento"], imagem: "img/projetos/claudia-oseias.jpg" }, // claudia-e-oseias.vercel.app
   { paginas: ["casamento"], imagem: "img/projetos/lidiane-celio.jpg" }, // convite-lidiane-celio.vercel.app
   { paginas: ["casamento"], imagem: "img/projetos/fernanda-alex.jpg" }, // casamentos-com.vercel.app
+  // Sem imagem: aparece um cartão que abre o site. Com imagem, ela aparece com zoom.
+  { paginas: ["lojas"], titulo: "Loja de roupas", link: "https://neneve.vercel.app/", imagem: "" },
 ];
 
 /* ---------- Projetos ----------

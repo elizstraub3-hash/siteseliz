@@ -319,6 +319,7 @@ p { margin: 0 0 1em; }
 .secao__intro { max-width: 34rem; margin: .4rem auto 0; color: var(--texto-suave); }
 .slider { --largura-slide: min(268px, 72vw); }
 .slider--cabe .slider__controles { display: none; }
+.slider--cabe .slider__trilho { justify-content: center; }
 .slider__trilho {
   display: flex; gap: 1.4rem;
   overflow-x: auto; scroll-snap-type: x mandatory;
@@ -343,6 +344,14 @@ p { margin: 0 0 1em; }
   background: #e6e6e6;
 }
 .slide__midia .mockup--celular { height: 86%; }
+.slide--link { text-decoration: none; color: inherit; }
+.slide--link .slide__midia {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.2rem;
+  padding: 2rem; text-align: center;
+  background: var(--escuro); color: #fff;
+}
+.slide__rotulo { font-family: var(--serifa); font-style: italic; font-size: 2.2rem; line-height: 1.1; }
+.slide--link .link-seta { border-color: rgba(255, 255, 255, .5); }
 
 /* Planos (valores) */
 .planos { display: grid; grid-template-columns: repeat(2, minmax(0, 420px)); justify-content: center; gap: 1.6rem; }
