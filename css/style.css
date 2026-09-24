@@ -436,9 +436,8 @@ p { margin: 0 0 1em; }
 .chamada-convites h3 { margin-bottom: .3rem; }
 .chamada-convites p:not(.sobretitulo) { margin: 0; color: var(--texto-suave); }
 .chamada-convites .sobretitulo { margin-bottom: .6rem; }
-.chamada-convites .link-seta { flex: none; }
-.chamada-convites:hover { background: var(--escuro); color: #fff; }
-.chamada-convites:hover p, .chamada-convites:hover .sobretitulo { color: #cfcfcf; }
+.chamada-convites__links { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: .6rem; max-width: 30rem; }
+.chamada-convites__links .outros__item { font-size: 1.15rem; }
 
 /* ---------- Contato ---------- */
 .contato { padding: 0 0 clamp(4.5rem, 9vw, 7.5rem); }
@@ -508,6 +507,7 @@ p { margin: 0 0 1em; }
   .slider__trilho { gap: 1rem; }
   .passos { grid-template-columns: 1fr; }
   .chamada-convites { flex-direction: column; align-items: flex-start; gap: 1.2rem; padding: 1.8rem 1.6rem; }
+  .chamada-convites__links { justify-content: flex-start; }
   .rodape__grid { justify-content: center; text-align: center; flex-direction: column; gap: .3rem; }
 }
 

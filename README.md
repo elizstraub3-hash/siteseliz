@@ -11,9 +11,12 @@ Site estático (HTML + CSS + JS), sem instalação. Basta abrir `index.html` ou 
 | Lojas online | `lojas.html` |
 | Catálogos online | `catalogos.html` |
 | Planilhas no Excel | `planilhas.html` |
-| Casamento | `casamento.html` |
-| Aniversário infantil | `infantil.html` |
-| 15 anos e eventos | `eventos.html` |
+| Convites de casamento | `casamento.html` |
+| Convites de aniversário infantil | `infantil.html` |
+| Convites de 15 anos | `quinze-anos.html` |
+| Convites de aniversário de 20 a 50 anos | `aniversarios.html` |
+
+`eventos.html` é o endereço antigo e só redireciona para `quinze-anos.html`.
 
 O conteúdo das páginas de serviço (título, texto, "O que pode incluir") fica em `js/config.js`, na lista `PAGINAS`. Cabeçalho e rodapé são iguais em todas as páginas e ficam em `js/main.js`.
 
@@ -50,10 +53,15 @@ O print aparece automaticamente dentro de um mockup de celular ou notebook.
 O botão "Ver demonstração" só aparece quando `link` está preenchido.
 Um projeto pode aparecer em mais de uma página (ex.: `["sites", "casamento"]`).
 
-## Convites (slide na página de casamento)
+## Convites (slide em cada página de comemoração)
 
-Os convites **não aparecem na página inicial**. Eles ficam em slide na página
-de casamento (`casamento.html`), com a descrição e o valor embaixo de cada modelo.
+Os convites **não aparecem na página inicial**. Cada comemoração tem a sua página
+(casamento, infantil, 15 anos, aniversários de 20 a 50 anos), com os modelos em
+slide e a descrição e o valor embaixo de cada um. Enquanto uma página não tem
+modelos, ela mostra "Novos modelos chegam em breve".
+
+Em `paginas`, use o id da página: `"casamento"`, `"infantil"`, `"quinze-anos"`
+ou `"aniversarios"`. O valor fica em `preco` (na página e em cada modelo).
 
 Para adicionar um modelo, copie um bloco da lista `CONVITES` em `js/config.js`
 e troque `modelo`, `exemplo`, `imagem`, `descricao`, `inclui` e `preco`.

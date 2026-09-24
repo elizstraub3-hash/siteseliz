@@ -49,6 +49,7 @@
       </button>
       <ul class="nav__menu" id="menu">
         <li><a href="index.html#servicos">Serviços</a></li>
+        <li><a href="index.html#convites">Convites</a></li>
         <li><a href="index.html#projetos">Projetos</a></li>
         <li><a href="#contato">Contato</a></li>
         <li><a href="#" data-whatsapp class="btn btn--pequeno">Orçamento</a></li>
@@ -158,19 +159,23 @@
     });
     aplicar("todos");
 
-    // Chamada para as páginas que têm convites em slide
-    PAGINAS.filter((p) => CONVITES.some((c) => c.paginas.includes(p.id))).forEach((p) =>
+    // Chamada para as páginas de convite (cada categoria tem a sua)
+    const paginasConvite = PAGINAS.filter((p) => p.grupo === "celebracoes");
+    if (paginasConvite.length) {
+      const preco = paginasConvite[0].preco;
       vazioEl.after(
-        el("a", { class: "chamada-convites", href: p.id + ".html#modelos" },
+        el("div", { class: "chamada-convites" },
           el("div", {},
-            el("p", { class: "sobretitulo" }, "Convites de " + p.nome.toLowerCase()),
+            el("p", { class: "sobretitulo" }, "Convites digitais"),
             el("h3", {}, "Veja os modelos de convite"),
-            el("p", {}, "Passe os modelos e escolha o estilo de vocês." + (p.preco ? ` ${p.preco} cada convite.` : ""))
+            el("p", {}, "Escolha a sua comemoração e passe os modelos." + (preco ? ` ${preco} cada convite.` : ""))
           ),
-          el("span", { class: "link-seta" }, "Ver modelos")
+          el("div", { class: "chamada-convites__links" },
+            ...paginasConvite.map((p) => el("a", { class: "outros__item", href: p.id + ".html#modelos" }, p.nome))
+          )
         )
-      )
-    );
+      );
+    }
   }
 
   /* ---------- Slide de convites ---------- */
@@ -251,6 +256,7 @@
   /* ---------- Páginas de serviço ---------- */
   function montarPaginaServico(p) {
     document.title = `${p.nome} · MKS Marketing`;
+    const ehConvite = p.grupo === "celebracoes";
     const convites = CONVITES.filter((c) => c.paginas.includes(p.id));
 
     const hero = el("section", { class: "pag-hero" },
@@ -260,12 +266,12 @@
           el("p", { class: "sobretitulo" }, p.nome),
           el("h1", {}, comItalico(p.titulo)),
           el("p", { class: "hero__intro" }, p.intro),
-          p.preco && convites.length
+          p.preco && ehConvite
             ? el("p", { class: "preco-destaque" }, "Convite interativo ", el("strong", {}, p.preco))
             : null,
           el("div", { class: "hero__acoes" },
             el("a", { href: "#", "data-whatsapp": "", class: "btn" }, "Solicitar orçamento"),
-            convites.length
+            ehConvite
               ? el("a", { href: "#modelos", class: "link-seta" }, "Ver modelos")
               : el("a", { href: "#projetos", class: "link-seta" }, "Ver projetos")
           )
@@ -279,22 +285,29 @@
 
     const secoes = [hero];
 
-    if (convites.length) {
+    if (ehConvite) {
+      const semModelos = el("div", { class: "container" },
+        el("p", {
+          class: "projetos-vazio",
+          html: `Novos modelos de ${p.nome.toLowerCase()} chegam em breve.<br />Enquanto isso, crio um convite exclusivo para você: <a href="#" data-whatsapp>fale comigo</a>.`,
+        })
+      );
       secoes.push(
         el("section", { class: "secao secao--tom", id: "modelos" },
           el("div", { class: "container" },
             el("header", { class: "secao__topo" },
               el("p", { class: "sobretitulo" }, "Modelos de convite"),
-              el("h2", {}, "Escolha o estilo de vocês"),
-              el("p", { class: "secao__intro" }, "Arraste para o lado e veja o que vai em cada convite. Todos são personalizados com os nomes, as cores e as informações do casal.")
+              el("h2", {}, "Escolha o seu estilo"),
+              convites.length && p.modelosIntro ? el("p", { class: "secao__intro" }, p.modelosIntro) : null
             )
           ),
-          criarSlider(convites, p)
+          convites.length ? criarSlider(convites, p) : semModelos
         )
       );
     }
 
-    if (p.passos) {
+    const passos = p.passos || (ehConvite ? PASSOS_CONVITE : null);
+    if (passos) {
       secoes.push(
         el("section", { class: "secao" },
           el("div", { class: "container" },
@@ -303,7 +316,7 @@
               el("h2", {}, "Como funciona")
             ),
             el("ol", { class: "passos" },
-              ...p.passos.map(([titulo, texto]) => el("li", {}, el("strong", {}, titulo), el("span", {}, texto)))
+              ...passos.map(([titulo, texto]) => el("li", {}, el("strong", {}, titulo), el("span", {}, texto)))
             )
           )
         )
@@ -311,19 +324,17 @@
     }
 
     const lista = PROJETOS.filter((x) => x.paginas.includes(p.id));
-    // Com convites em slide, a grade só aparece se houver outros projetos (ex.: site do casamento)
-    if (!convites.length || lista.length) {
+    // Nas páginas de convite, a grade só aparece se houver outros projetos (ex.: site do casamento)
+    if (!ehConvite || lista.length) {
       const grade = el("div", { class: "grade", "aria-live": "polite" });
       const vazio = blocoVazio();
       secoes.push(
         el("section", { class: "secao secao--tom", id: "projetos" },
           el("div", { class: "container" },
             el("header", { class: "secao__topo" },
-              el("p", { class: "sobretitulo" }, convites.length ? "Vá além do convite" : "Portfólio"),
-              el("h2", {}, convites.length ? "Site do casamento" : "Projetos"),
-              convites.length
-                ? el("p", { class: "secao__intro" }, "Um site completo com todas as informações do grande dia. Valor sob orçamento.")
-                : null
+              el("p", { class: "sobretitulo" }, ehConvite ? "Vá além do convite" : "Portfólio"),
+              el("h2", {}, (ehConvite && p.extra && p.extra[0]) || "Projetos"),
+              ehConvite && p.extra ? el("p", { class: "secao__intro" }, p.extra[1]) : null
             ),
             grade,
             vazio

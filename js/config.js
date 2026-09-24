@@ -105,7 +105,12 @@ const PAGINAS = [
     orcamento: "planilha no Excel",
   },
 
-  /* ----- Para celebrações ----- */
+  /* ----- Para celebrações (convites) -----
+     Estas páginas mostram os modelos da lista CONVITES em slide.
+     preco         → valor de cada convite (aparece no topo e em cada modelo)
+     modelosIntro  → texto acima do slide
+     passos        → "Como funciona" (sem este campo, usa PASSOS_CONVITE)
+     extra         → título e texto da seção de outros projetos da página */
   {
     id: "casamento",
     grupo: "celebracoes",
@@ -123,8 +128,10 @@ const PAGINAS = [
     ],
     mockup: "celular",
     orcamento: "convite ou site de casamento",
-    // Só nas páginas com convites (lista CONVITES abaixo):
     preco: "R$ 85,00",
+    extra: ["Site do casamento", "Um site completo com todas as informações do grande dia. Valor sob orçamento."],
+    modelosIntro:
+      "Arraste para o lado e veja o que vai em cada convite. Todos são personalizados com os nomes, as cores e as informações do casal.",
     passos: [
       ["Escolha o modelo", "Passe os modelos e escolha o estilo que mais combina com vocês."],
       ["Envie as informações", "Nomes, data, horário, local, foto e a música do casal."],
@@ -144,35 +151,71 @@ const PAGINAS = [
     inclui: [
       "Convite digital estático, em imagem",
       "Convite interativo, com botões e links",
-      "Artes em diversos temas e estilos",
+      "Artes no tema favorito da criança",
       "Pronto para enviar pelo WhatsApp",
     ],
     mockup: "celular",
     orcamento: "convite de aniversário infantil",
+    preco: "R$ 85,00",
+    modelosIntro:
+      "Arraste para o lado e veja o que vai em cada convite. Todos são personalizados com o nome, a idade e o tema da criança.",
   },
   {
-    id: "eventos",
+    id: "quinze-anos",
     grupo: "celebracoes",
-    nome: "15 anos e eventos",
-    filtro: "15 anos e eventos",
-    resumo: "Convites em diversos temas para cada ocasião.",
-    titulo: "Convites para *cada* ocasião",
+    nome: "15 anos",
+    filtro: "15 anos",
+    resumo: "Convites para uma festa de debutante inesquecível.",
+    titulo: "Convites para uma noite *inesquecível*",
     intro:
-      "Convites digitais para 15 anos e outros eventos, em diversos temas e estilos, criados de acordo com a ocasião.",
+      "Convites digitais para festas de 15 anos, com a personalidade da debutante — do clássico ao moderno, prontos para enviar pelo WhatsApp.",
     inclui: [
       "Convite digital estático, em imagem",
       "Convite interativo, com botões e links",
-      "Artes em diversos temas e estilos",
+      "Foto da debutante e a música da festa",
       "Pronto para enviar pelo WhatsApp",
     ],
     mockup: "celular",
-    orcamento: "convite de 15 anos ou evento",
+    orcamento: "convite de 15 anos",
+    preco: "R$ 85,00",
+    modelosIntro:
+      "Arraste para o lado e veja o que vai em cada convite. Todos são personalizados com o nome, as cores e o estilo da debutante.",
+  },
+  {
+    id: "aniversarios",
+    grupo: "celebracoes",
+    nome: "Aniversários de 20 a 50 anos",
+    filtro: "Aniversários",
+    resumo: "Convites para 20, 30, 40, 50 anos e muito mais.",
+    titulo: "Convites para comemorar *cada década*",
+    intro:
+      "Convites digitais para aniversários de 20, 30, 40, 50 anos e outras idades — do churrasco entre amigos à festa completa.",
+    inclui: [
+      "Convite digital estático, em imagem",
+      "Convite interativo, com botões e links",
+      "Estilo de acordo com a festa: elegante, divertido ou temático",
+      "Pronto para enviar pelo WhatsApp",
+    ],
+    mockup: "celular",
+    orcamento: "convite de aniversário",
+    preco: "R$ 85,00",
+    modelosIntro:
+      "Arraste para o lado e veja o que vai em cada convite. Todos são personalizados com o nome, a idade e o estilo da festa.",
   },
 ];
 
+/* ---------- Como funciona (padrão das páginas de convite) ---------- */
+const PASSOS_CONVITE = [
+  ["Escolha o modelo", "Passe os modelos e escolha o estilo que mais combina com a festa."],
+  ["Envie as informações", "Nome, idade, data, horário, local, foto e o tema."],
+  ["Aprove a prévia", "Você confere o convite pronto antes de finalizar."],
+  ["Receba o link", "É só enviar aos convidados pelo WhatsApp."],
+];
+
 /* ---------- Convites (slide) ----------
-   Aparecem em slide na página indicada em "paginas" (ex.: casamento.html)
-   e NÃO aparecem na página inicial.
+   Aparecem em slide na página indicada em "paginas" e NÃO aparecem na
+   página inicial. Ids das páginas: "casamento", "infantil", "quinze-anos",
+   "aniversarios".
 
    modelo    → nome do modelo (título do slide)
    exemplo   → casal do exemplo mostrado no print
