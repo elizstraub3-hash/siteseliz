@@ -49,7 +49,9 @@ O conteúdo das páginas de serviço (título, texto, "O que pode incluir") fica
 },
 ```
 
-O print aparece automaticamente dentro de um mockup de celular ou notebook.
+O print aparece automaticamente dentro de um mockup de celular ou notebook,
+e o cliente pode tocar nele para ampliar. O nome do cliente não aparece no site.
+A página inicial não mostra projetos: eles ficam na página de cada serviço.
 O botão "Ver demonstração" só aparece quando `link` está preenchido.
 Um projeto pode aparecer em mais de uma página (ex.: `["sites", "casamento"]`).
 
@@ -64,7 +66,8 @@ Em `paginas`, use o id da página: `"casamento"`, `"infantil"`, `"quinze-anos"`
 ou `"aniversarios"`. O valor fica em `preco` (na página e em cada modelo).
 
 Para adicionar um modelo, copie um bloco da lista `CONVITES` em `js/config.js`
-e troque `modelo`, `exemplo`, `imagem`, `descricao`, `inclui` e `preco`.
+e troque `modelo`, `imagem`, `descricao`, `inclui` e `preco`.
+O cliente toca na imagem para ver o convite inteiro ampliado.
 O botão "Quero este modelo" já abre o WhatsApp com o nome do modelo.
 O passo a passo "Como funciona" fica em `PAGINAS` → casamento → `passos`.
 

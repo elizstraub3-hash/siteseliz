@@ -109,8 +109,7 @@ const PAGINAS = [
      Estas páginas mostram os modelos da lista CONVITES em slide.
      preco         → valor de cada convite (aparece no topo e em cada modelo)
      modelosIntro  → texto acima do slide
-     passos        → "Como funciona" (sem este campo, usa PASSOS_CONVITE)
-     extra         → título e texto da seção de outros projetos da página */
+     passos        → "Como funciona" (sem este campo, usa PASSOS_CONVITE) */
   {
     id: "casamento",
     grupo: "celebracoes",
@@ -129,7 +128,6 @@ const PAGINAS = [
     mockup: "celular",
     orcamento: "convite ou site de casamento",
     preco: "R$ 85,00",
-    extra: ["Site do casamento", "Um site completo com todas as informações do grande dia. Valor sob orçamento."],
     modelosIntro:
       "Arraste para o lado e veja o que vai em cada convite. Todos são personalizados com os nomes, as cores e as informações do casal.",
     passos: [
@@ -217,9 +215,9 @@ const PASSOS_CONVITE = [
    página inicial. Ids das páginas: "casamento", "infantil", "quinze-anos",
    "aniversarios".
 
-   modelo    → nome do modelo (título do slide)
-   exemplo   → casal do exemplo mostrado no print
-   imagem    → print do convite no celular (em img/projetos/)
+   modelo    → nome do estilo (título do slide)
+   imagem    → print do convite no celular (em img/projetos/).
+               No site, o cliente toca na imagem para ampliar.
    link      → demonstração (abre em nova aba). Deixe "" para não mostrar o botão.
    descricao → texto curto sobre o estilo do convite
    inclui    → lista "O que vai neste convite"
@@ -227,51 +225,64 @@ const PASSOS_CONVITE = [
 const CONVITES = [
   {
     modelo: "Clássico Botânico",
-    exemplo: "Francieli & Carlos Eduardo",
     paginas: ["casamento"],
-    imagem: "img/projetos/francieli-carlos.jpg",
+    imagem: "img/projetos/francieli-carlos.jpg", // Francieli & Carlos Eduardo
     link: "", // convite real: https://convitefrancarlos.vercel.app/
     descricao:
       "Fundo com textura de papel, galhos delicados e monograma com as iniciais do casal. Elegante e atemporal.",
     inclui: [
       "Monograma com as iniciais do casal",
-      "Nomes, data e horário da cerimônia",
-      "Frase de abertura personalizada",
-      "Botão para tocar a música do casal",
+      "Música do casal",
+      "Mural de fotos",
+      "Confirmação de presença pelo WhatsApp",
     ],
     preco: "R$ 85,00",
   },
   {
     modelo: "Azul & Dourado",
-    exemplo: "Claudia & Oséias",
     paginas: ["casamento"],
-    imagem: "img/projetos/claudia-oseias.jpg",
+    imagem: "img/projetos/claudia-oseias.jpg", // Claudia & Oséias
     link: "", // convite real: https://claudia-e-oseias.vercel.app/jantar.html
     descricao:
       "Moldura floral em azul e dourado, monograma sofisticado e uma mensagem carinhosa para os convidados.",
     inclui: [
-      "Monograma com folhas douradas",
       "Mensagem especial para os convidados",
-      "Data e horário em destaque",
-      "Player com a música do casal",
+      "Música do casal",
+      "Mural de fotos",
+      "Confirmação de presença pelo WhatsApp",
     ],
     preco: "R$ 85,00",
   },
   {
     modelo: "Com Foto do Casal",
-    exemplo: "Lidiane & Celio",
     paginas: ["casamento"],
-    imagem: "img/projetos/lidiane-celio.jpg",
+    imagem: "img/projetos/lidiane-celio.jpg", // Lidiane & Celio
     link: "", // convite real: https://convite-lidiane-celio.vercel.app/jantar.html
     descricao:
       "A foto do casal abre o convite e as informações do evento vêm logo abaixo, organizadas em cartões.",
     inclui: [
       "Foto do casal na capa",
       "Local, endereço, data e horário",
-      "Contagem para o grande dia",
-      "Player com a música do casal",
+      "Música do casal",
+      "Mural de fotos",
+      "Confirmação de presença pelo WhatsApp",
     ],
     preco: "R$ 85,00",
+  },
+  {
+    modelo: "Site do Casamento",
+    paginas: ["casamento"],
+    imagem: "img/projetos/fernanda-alex.jpg", // Fernanda & Alex
+    link: "", // site real: https://casamentos-com.vercel.app/
+    descricao:
+      "Um site completo com todas as informações do grande dia, para quem quer ir além do convite.",
+    inclui: [
+      "Todas as informações do casamento em um só endereço",
+      "Música do casal",
+      "Mural de fotos",
+      "Confirmação de presença",
+    ],
+    preco: "Sob orçamento",
   },
 ];
 
@@ -279,7 +290,7 @@ const CONVITES = [
    Para adicionar um trabalho, copie um bloco { ... }, cole no fim da lista
    e troque as informações.
 
-   nome     → título do card
+   nome     → nome do cliente (só para você se organizar; não aparece no site)
    tipo     → texto curto exibido no card (ex.: "Convite interativo")
    paginas  → em quais páginas aparece (ids da lista PAGINAS acima)
    imagem   → print da tela do projeto (coloque o arquivo em img/projetos/).
@@ -291,7 +302,7 @@ const PROJETOS = [
   {
     nome: "Fernanda & Alex",
     tipo: "Site de casamento · Casamentos.com",
-    paginas: ["casamento", "sites"],
+    paginas: ["sites"],
     imagem: "img/projetos/fernanda-alex.jpg",
     link: "", // site real: https://casamentos-com.vercel.app/
   },

@@ -50,7 +50,6 @@
       <ul class="nav__menu" id="menu">
         <li><a href="index.html#servicos">Serviços</a></li>
         <li><a href="index.html#convites">Convites</a></li>
-        <li><a href="index.html#projetos">Projetos</a></li>
         <li><a href="#contato">Contato</a></li>
         <li><a href="#" data-whatsapp class="btn btn--pequeno">Orçamento</a></li>
       </ul>
@@ -83,12 +82,7 @@
     const pag = PAGINAS.find((x) => x.id === (paginaAtual ? paginaAtual.id : p.paginas[0]));
     const tipoMockup = (pag && pag.mockup) || "celular";
 
-    const corpo = el(
-      "div",
-      { class: "card__corpo" },
-      el("p", { class: "card__categoria" }, p.tipo),
-      el("h3", { class: "card__titulo" }, p.nome)
-    );
+    const corpo = el("div", { class: "card__corpo" }, el("p", { class: "card__categoria" }, p.tipo));
     if (p.link) {
       corpo.append(
         el("a", {
@@ -100,7 +94,69 @@
         }, "Ver demonstração")
       );
     }
-    return el("article", { class: "card" }, el("div", { class: "card__midia" }, criarMockup(p, tipoMockup)), corpo);
+    return el("article", { class: "card" }, midiaComZoom("card__midia", criarMockup(p, tipoMockup), p.imagem, p.tipo), corpo);
+  }
+
+  /* ---------- Zoom: tocar na imagem abre o print inteiro ---------- */
+  let zoomLista = [];
+  let zoomAtual = 0;
+  let zoomOrigem = null;
+  const zoom = el("div", { class: "zoom", role: "dialog", "aria-modal": "true", "aria-label": "Imagem ampliada", hidden: "" });
+  const zoomTitulo = el("p", { class: "zoom__titulo" });
+  const zoomImg = el("img", { class: "zoom__img", alt: "" });
+  const zoomRolagem = el("div", { class: "zoom__rolagem" }, zoomImg);
+  const zoomFechar = el("button", { type: "button", class: "zoom__fechar", "aria-label": "Fechar" }, "✕");
+  const zoomAnterior = el("button", { type: "button", class: "zoom__seta zoom__seta--esq", "aria-label": "Anterior" }, "←");
+  const zoomProximo = el("button", { type: "button", class: "zoom__seta zoom__seta--dir", "aria-label": "Próximo" }, "→");
+  zoom.append(el("div", { class: "zoom__topo" }, zoomTitulo, zoomFechar), zoomRolagem, zoomAnterior, zoomProximo);
+  document.body.append(zoom);
+
+  function mostrarZoom(i) {
+    zoomAtual = (i + zoomLista.length) % zoomLista.length;
+    const item = zoomLista[zoomAtual];
+    zoomImg.src = item.src;
+    zoomImg.alt = "Print completo: " + item.titulo;
+    zoomTitulo.textContent = zoomLista.length > 1 ? `${item.titulo} · ${zoomAtual + 1} / ${zoomLista.length}` : item.titulo;
+    zoomRolagem.scrollTop = 0;
+    zoomAnterior.hidden = zoomProximo.hidden = zoomLista.length < 2;
+  }
+  function abrirZoom(lista, i) {
+    zoomLista = lista;
+    zoomOrigem = document.activeElement;
+    mostrarZoom(i);
+    zoom.hidden = false;
+    document.body.classList.add("sem-rolagem");
+    zoomFechar.focus();
+  }
+  function fecharZoom() {
+    zoom.hidden = true;
+    document.body.classList.remove("sem-rolagem");
+    if (zoomOrigem) zoomOrigem.focus();
+  }
+  zoomFechar.addEventListener("click", fecharZoom);
+  zoomAnterior.addEventListener("click", () => mostrarZoom(zoomAtual - 1));
+  zoomProximo.addEventListener("click", () => mostrarZoom(zoomAtual + 1));
+  zoom.addEventListener("click", (e) => { if (e.target === zoom || e.target === zoomRolagem) fecharZoom(); });
+  document.addEventListener("keydown", (e) => {
+    if (zoom.hidden) return;
+    if (e.key === "Escape") fecharZoom();
+    if (e.key === "ArrowLeft" && zoomLista.length > 1) mostrarZoom(zoomAtual - 1);
+    if (e.key === "ArrowRight" && zoomLista.length > 1) mostrarZoom(zoomAtual + 1);
+  });
+
+  // Envolve o mockup num botão que abre o zoom (a lista é montada no clique,
+  // com todas as imagens da mesma seção, para dar para passar de uma para outra)
+  function midiaComZoom(classe, mockup, imagem, titulo) {
+    if (!imagem) return el("div", { class: classe }, mockup);
+    const botao = el("button", { type: "button", class: classe + " midia-zoom", "data-zoom": imagem, "data-titulo": titulo, "aria-label": "Ampliar: " + titulo },
+      mockup,
+      el("span", { class: "midia-zoom__dica", "aria-hidden": "true" }, "⤢ Toque para ampliar")
+    );
+    botao.addEventListener("click", () => {
+      const grupo = [...(botao.closest("section") || document).querySelectorAll("[data-zoom]")];
+      abrirZoom(grupo.map((b) => ({ src: b.dataset.zoom, titulo: b.dataset.titulo })), grupo.indexOf(botao));
+    });
+    return botao;
   }
 
   function preencherGrade(grade, vazio, lista, nomeCategoria) {
@@ -125,53 +181,10 @@
       if (!alvo) continue;
       PAGINAS.filter((p) => p.grupo === grupo).forEach((p) =>
         alvo.append(
-          el("a", { class: "servico", href: p.id + ".html" },
+          el("a", { class: "servico", href: p.id + ".html" + (grupo === "celebracoes" ? "#modelos" : "") },
             el("h3", {}, p.nome),
             el("p", {}, p.resumo),
-            el("span", { class: "servico__link" }, "Ver página")
-          )
-        )
-      );
-    }
-
-    // Filtros de projetos
-    const filtrosEl = document.getElementById("filtros");
-    const gradeEl = document.getElementById("grade-projetos");
-    const vazioEl = document.getElementById("projetos-vazio");
-    // Convites e celebrações têm páginas próprias; aqui entram só os negócios
-    const paginasNegocio = PAGINAS.filter((p) => p.grupo === "negocios");
-    const projetosNegocio = PROJETOS.filter((p) => paginasNegocio.some((x) => p.paginas.includes(x.id)));
-    const filtros = [{ id: "todos", filtro: "Todos" }, ...paginasNegocio];
-
-    const aplicar = (id) => {
-      filtrosEl.querySelectorAll(".filtro").forEach((b) =>
-        b.setAttribute("aria-pressed", String(b.dataset.filtro === id))
-      );
-      const lista = id === "todos" ? projetosNegocio : projetosNegocio.filter((p) => p.paginas.includes(id));
-      const pag = PAGINAS.find((p) => p.id === id);
-      preencherGrade(gradeEl, vazioEl, lista, pag ? pag.nome.toLowerCase() : "");
-    };
-
-    filtros.forEach((f, i) => {
-      const b = el("button", { type: "button", class: "filtro", "data-filtro": f.id, "aria-pressed": String(i === 0) }, f.filtro);
-      b.addEventListener("click", () => aplicar(f.id));
-      filtrosEl.append(b);
-    });
-    aplicar("todos");
-
-    // Chamada para as páginas de convite (cada categoria tem a sua)
-    const paginasConvite = PAGINAS.filter((p) => p.grupo === "celebracoes");
-    if (paginasConvite.length) {
-      const preco = paginasConvite[0].preco;
-      vazioEl.after(
-        el("div", { class: "chamada-convites" },
-          el("div", {},
-            el("p", { class: "sobretitulo" }, "Convites digitais"),
-            el("h3", {}, "Veja os modelos de convite"),
-            el("p", {}, "Escolha a sua comemoração e passe os modelos." + (preco ? ` ${preco} cada convite.` : ""))
-          ),
-          el("div", { class: "chamada-convites__links" },
-            ...paginasConvite.map((p) => el("a", { class: "outros__item", href: p.id + ".html#modelos" }, p.nome))
+            el("span", { class: "servico__link" }, grupo === "celebracoes" ? "Ver convites" : "Ver página")
           )
         )
       );
@@ -192,9 +205,8 @@
       acoes.append(el("a", { class: "btn btn--linha", href: c.link, target: "_blank", rel: "noopener" }, "Ver demonstração"));
     }
     return el("article", { class: "slide", "aria-roledescription": "slide" },
-      el("div", { class: "slide__midia" }, criarMockup({ nome: c.modelo, imagem: c.imagem }, "celular")),
+      midiaComZoom("slide__midia", criarMockup({ nome: c.modelo, imagem: c.imagem }, "celular"), c.imagem, c.modelo),
       el("div", { class: "slide__corpo" },
-        el("p", { class: "card__categoria" }, "Exemplo: " + c.exemplo),
         el("h3", { class: "slide__titulo" }, c.modelo),
         el("p", { class: "slide__descricao" }, c.descricao),
         el("h4", { class: "slide__subtitulo" }, "O que vai neste convite"),
@@ -324,7 +336,7 @@
     }
 
     const lista = PROJETOS.filter((x) => x.paginas.includes(p.id));
-    // Nas páginas de convite, a grade só aparece se houver outros projetos (ex.: site do casamento)
+    // Nas páginas de convite, os trabalhos ficam no slide; a grade só aparece se houver outros projetos
     if (!ehConvite || lista.length) {
       const grade = el("div", { class: "grade", "aria-live": "polite" });
       const vazio = blocoVazio();
@@ -332,9 +344,8 @@
         el("section", { class: "secao secao--tom", id: "projetos" },
           el("div", { class: "container" },
             el("header", { class: "secao__topo" },
-              el("p", { class: "sobretitulo" }, ehConvite ? "Vá além do convite" : "Portfólio"),
-              el("h2", {}, (ehConvite && p.extra && p.extra[0]) || "Projetos"),
-              ehConvite && p.extra ? el("p", { class: "secao__intro" }, p.extra[1]) : null
+              el("p", { class: "sobretitulo" }, "Portfólio"),
+              el("h2", {}, "Projetos")
             ),
             grade,
             vazio
