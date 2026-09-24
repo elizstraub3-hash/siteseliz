@@ -106,35 +106,56 @@ const PAGINAS = [
   },
 
   /* ----- Para celebrações (convites) -----
-     Estas páginas mostram os modelos da lista CONVITES em slide.
-     preco         → valor de cada convite (aparece no topo e em cada modelo)
-     modelosIntro  → texto acima do slide
-     passos        → "Como funciona" (sem este campo, usa PASSOS_CONVITE) */
+     Estas páginas mostram: referências (lista REFERENCIAS abaixo), os
+     valores (planos) com o que vai no convite, e o "Como funciona".
+     planos  → cada plano tem nome, resumo, preco e a lista "inclui".
+               destaque: "texto do selo" deixa o plano em evidência.
+     passos  → "Como funciona" (sem este campo, usa PASSOS_CONVITE) */
   {
     id: "casamento",
     grupo: "celebracoes",
     nome: "Casamento",
     filtro: "Casamento",
-    resumo: "Convites digitais e sites para o grande dia.",
-    titulo: "Convites e sites para o *grande dia*",
+    resumo: "Convites digitais interativos para o grande dia.",
+    titulo: "Convites para o *grande dia*",
     intro:
-      "Convites digitais estáticos e interativos e sites de casamento com a identidade do casal — prontos para enviar aos convidados pelo WhatsApp.",
-    inclui: [
-      "Convite digital estático, em imagem",
-      "Convite interativo, com botões e links",
-      "Site do casamento com as informações do evento",
-      "Design exclusivo com a identidade do casal",
-    ],
+      "Convites digitais interativos com o tema e as cores que vocês escolherem — prontos para enviar aos convidados pelo WhatsApp.",
+    inclui: [],
     mockup: "celular",
-    orcamento: "convite ou site de casamento",
-    preco: "R$ 85,00",
-    modelosIntro:
-      "Arraste para o lado e veja o que vai em cada convite. Todos são personalizados com os nomes, as cores e as informações do casal.",
+    orcamento: "convite de casamento",
+    planos: [
+      {
+        nome: "Convite básico",
+        resumo: "O convite interativo completo, com o tema escolhido pelos noivos.",
+        preco: "R$ 85,00",
+        inclui: [
+          "Tema e cores escolhidos pelos noivos",
+          "Nomes, data, horário e endereço",
+          "Música do casal",
+          "Mural de fotos",
+          "Confirmação de presença pelo WhatsApp",
+          "Link pronto para enviar aos convidados",
+        ],
+      },
+      {
+        nome: "Convite com painel",
+        destaque: "Mais completo",
+        resumo: "Tudo do básico, mais um painel só para os noivos acompanharem tudo.",
+        preco: "R$ 95,00",
+        inclui: [
+          "Tudo do convite básico",
+          "Painel exclusivo dos noivos",
+          "Lista de presentes",
+          "Veja quem confirmou presença",
+          "Total de pessoas confirmadas",
+        ],
+      },
+    ],
     passos: [
-      ["Escolha o modelo", "Passe os modelos e escolha o estilo que mais combina com vocês."],
-      ["Envie as informações", "Nomes, data, horário, local, foto e a música do casal."],
-      ["Aprove a prévia", "Você confere o convite pronto antes de finalizar."],
-      ["Receba o link", "É só enviar aos convidados pelo WhatsApp."],
+      ["Escolham o tema", "Vocês escolhem o tema e as cores. As referências servem de inspiração."],
+      ["Enviem as informações", "Nomes, data, horário, local, fotos e a música do casal."],
+      ["Aprovem a prévia", "Vocês conferem o convite pronto antes de finalizar."],
+      ["Recebam o link", "É só enviar aos convidados pelo WhatsApp."],
     ],
   },
   {
@@ -142,21 +163,29 @@ const PAGINAS = [
     grupo: "celebracoes",
     nome: "Aniversário infantil",
     filtro: "Infantil",
-    resumo: "Convites nos mais diversos temas para os pequenos.",
+    resumo: "Convites no tema favorito da criança.",
     titulo: "Convites cheios de *personalidade* para os pequenos",
     intro:
-      "Convites digitais para aniversários infantis nos mais diversos temas — do tema favorito da criança a uma ideia criada do zero.",
-    inclui: [
-      "Convite digital estático, em imagem",
-      "Convite interativo, com botões e links",
-      "Artes no tema favorito da criança",
-      "Pronto para enviar pelo WhatsApp",
-    ],
+      "Convites digitais interativos no tema favorito da criança — prontos para enviar aos convidados pelo WhatsApp.",
+    inclui: [],
     mockup: "celular",
     orcamento: "convite de aniversário infantil",
-    preco: "R$ 85,00",
-    modelosIntro:
-      "Arraste para o lado e veja o que vai em cada convite. Todos são personalizados com o nome, a idade e o tema da criança.",
+    planos: [
+      {
+        nome: "Convite básico",
+        resumo: "O convite interativo completo, com o tema escolhido por vocês.",
+        preco: "R$ 85,00",
+        inclui: [
+          "Tema e cores escolhidos por vocês",
+          "Nome e idade do aniversariante",
+          "Data, horário e endereço da festa",
+          "Música",
+          "Mural de fotos",
+          "Confirmação de presença pelo WhatsApp",
+          "Link pronto para enviar aos convidados",
+        ],
+      },
+    ],
   },
   {
     id: "quinze-anos",
@@ -166,18 +195,26 @@ const PAGINAS = [
     resumo: "Convites para uma festa de debutante inesquecível.",
     titulo: "Convites para uma noite *inesquecível*",
     intro:
-      "Convites digitais para festas de 15 anos, com a personalidade da debutante — do clássico ao moderno, prontos para enviar pelo WhatsApp.",
-    inclui: [
-      "Convite digital estático, em imagem",
-      "Convite interativo, com botões e links",
-      "Foto da debutante e a música da festa",
-      "Pronto para enviar pelo WhatsApp",
-    ],
+      "Convites digitais interativos com o tema e o estilo da debutante — prontos para enviar aos convidados pelo WhatsApp.",
+    inclui: [],
     mockup: "celular",
     orcamento: "convite de 15 anos",
-    preco: "R$ 85,00",
-    modelosIntro:
-      "Arraste para o lado e veja o que vai em cada convite. Todos são personalizados com o nome, as cores e o estilo da debutante.",
+    planos: [
+      {
+        nome: "Convite básico",
+        resumo: "O convite interativo completo, com o tema escolhido por vocês.",
+        preco: "R$ 85,00",
+        inclui: [
+          "Tema e cores escolhidos por vocês",
+          "Nome e foto da debutante",
+          "Data, horário e endereço da festa",
+          "Música",
+          "Mural de fotos",
+          "Confirmação de presença pelo WhatsApp",
+          "Link pronto para enviar aos convidados",
+        ],
+      },
+    ],
   },
   {
     id: "aniversarios",
@@ -187,103 +224,49 @@ const PAGINAS = [
     resumo: "Convites para 20, 30, 40, 50 anos e muito mais.",
     titulo: "Convites para comemorar *cada década*",
     intro:
-      "Convites digitais para aniversários de 20, 30, 40, 50 anos e outras idades — do churrasco entre amigos à festa completa.",
-    inclui: [
-      "Convite digital estático, em imagem",
-      "Convite interativo, com botões e links",
-      "Estilo de acordo com a festa: elegante, divertido ou temático",
-      "Pronto para enviar pelo WhatsApp",
-    ],
+      "Convites digitais interativos para aniversários de 20, 30, 40, 50 anos e outras idades — do churrasco entre amigos à festa completa.",
+    inclui: [],
     mockup: "celular",
     orcamento: "convite de aniversário",
-    preco: "R$ 85,00",
-    modelosIntro:
-      "Arraste para o lado e veja o que vai em cada convite. Todos são personalizados com o nome, a idade e o estilo da festa.",
+    planos: [
+      {
+        nome: "Convite básico",
+        resumo: "O convite interativo completo, com o tema escolhido por vocês.",
+        preco: "R$ 85,00",
+        inclui: [
+          "Tema e cores escolhidos por vocês",
+          "Nome e idade do aniversariante",
+          "Data, horário e endereço da festa",
+          "Música",
+          "Mural de fotos",
+          "Confirmação de presença pelo WhatsApp",
+          "Link pronto para enviar aos convidados",
+        ],
+      },
+    ],
   },
 ];
 
 /* ---------- Como funciona (padrão das páginas de convite) ---------- */
 const PASSOS_CONVITE = [
-  ["Escolha o modelo", "Passe os modelos e escolha o estilo que mais combina com a festa."],
+  ["Escolha o tema", "Você escolhe o tema e as cores. As referências servem de inspiração."],
   ["Envie as informações", "Nome, idade, data, horário, local, foto e o tema."],
   ["Aprove a prévia", "Você confere o convite pronto antes de finalizar."],
   ["Receba o link", "É só enviar aos convidados pelo WhatsApp."],
 ];
 
-/* ---------- Convites (slide) ----------
-   Aparecem em slide na página indicada em "paginas" e NÃO aparecem na
-   página inicial. Ids das páginas: "casamento", "infantil", "quinze-anos",
-   "aniversarios".
+/* ---------- Referências (trabalhos já feitos) ----------
+   Aparecem em slide, só a imagem, sem nome nem descrição. O cliente toca
+   para ampliar. NÃO aparecem na página inicial.
 
-   modelo    → nome do estilo (título do slide)
-   imagem    → print do convite no celular (em img/projetos/).
-               No site, o cliente toca na imagem para ampliar.
-   link      → demonstração (abre em nova aba). Deixe "" para não mostrar o botão.
-   descricao → texto curto sobre o estilo do convite
-   inclui    → lista "O que vai neste convite"
-   preco     → valor exibido no slide                                    */
-const CONVITES = [
-  {
-    modelo: "Clássico Botânico",
-    paginas: ["casamento"],
-    imagem: "img/projetos/francieli-carlos.jpg", // Francieli & Carlos Eduardo
-    link: "", // convite real: https://convitefrancarlos.vercel.app/
-    descricao:
-      "Fundo com textura de papel, galhos delicados e monograma com as iniciais do casal. Elegante e atemporal.",
-    inclui: [
-      "Monograma com as iniciais do casal",
-      "Música do casal",
-      "Mural de fotos",
-      "Confirmação de presença pelo WhatsApp",
-    ],
-    preco: "R$ 85,00",
-  },
-  {
-    modelo: "Azul & Dourado",
-    paginas: ["casamento"],
-    imagem: "img/projetos/claudia-oseias.jpg", // Claudia & Oséias
-    link: "", // convite real: https://claudia-e-oseias.vercel.app/jantar.html
-    descricao:
-      "Moldura floral em azul e dourado, monograma sofisticado e uma mensagem carinhosa para os convidados.",
-    inclui: [
-      "Mensagem especial para os convidados",
-      "Música do casal",
-      "Mural de fotos",
-      "Confirmação de presença pelo WhatsApp",
-    ],
-    preco: "R$ 85,00",
-  },
-  {
-    modelo: "Com Foto do Casal",
-    paginas: ["casamento"],
-    imagem: "img/projetos/lidiane-celio.jpg", // Lidiane & Celio
-    link: "", // convite real: https://convite-lidiane-celio.vercel.app/jantar.html
-    descricao:
-      "A foto do casal abre o convite e as informações do evento vêm logo abaixo, organizadas em cartões.",
-    inclui: [
-      "Foto do casal na capa",
-      "Local, endereço, data e horário",
-      "Música do casal",
-      "Mural de fotos",
-      "Confirmação de presença pelo WhatsApp",
-    ],
-    preco: "R$ 85,00",
-  },
-  {
-    modelo: "Site do Casamento",
-    paginas: ["casamento"],
-    imagem: "img/projetos/fernanda-alex.jpg", // Fernanda & Alex
-    link: "", // site real: https://casamentos-com.vercel.app/
-    descricao:
-      "Um site completo com todas as informações do grande dia, para quem quer ir além do convite.",
-    inclui: [
-      "Todas as informações do casamento em um só endereço",
-      "Música do casal",
-      "Mural de fotos",
-      "Confirmação de presença",
-    ],
-    preco: "Sob orçamento",
-  },
+   paginas → em qual página aparece: "casamento", "infantil",
+             "quinze-anos" ou "aniversarios"
+   imagem  → print do convite no celular (em img/projetos/)          */
+const REFERENCIAS = [
+  { paginas: ["casamento"], imagem: "img/projetos/francieli-carlos.jpg" }, // convitefrancarlos.vercel.app
+  { paginas: ["casamento"], imagem: "img/projetos/claudia-oseias.jpg" }, // claudia-e-oseias.vercel.app
+  { paginas: ["casamento"], imagem: "img/projetos/lidiane-celio.jpg" }, // convite-lidiane-celio.vercel.app
+  { paginas: ["casamento"], imagem: "img/projetos/fernanda-alex.jpg" }, // casamentos-com.vercel.app
 ];
 
 /* ---------- Projetos ----------

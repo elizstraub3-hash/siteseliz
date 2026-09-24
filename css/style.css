@@ -317,61 +317,68 @@ p { margin: 0 0 1em; }
 
 /* ---------- Convites: preço, slide e passo a passo ---------- */
 .secao__intro { max-width: 34rem; margin: .4rem auto 0; color: var(--texto-suave); }
-.preco-destaque {
-  display: inline-flex; align-items: baseline; gap: .6rem;
-  margin: -1rem 0 2.2rem; padding: .5rem 1.2rem;
-  border: 1px solid var(--linha); border-radius: 999px;
-  font-size: .82rem; letter-spacing: .14em; text-transform: uppercase; color: var(--texto-suave);
-}
-.preco-destaque strong {
-  font-family: var(--serifa); font-size: 1.5rem; font-weight: 600;
-  letter-spacing: 0; text-transform: none; color: var(--texto);
-}
-
-.slider { --largura-slide: min(400px, 82vw); }
+.slider { --largura-slide: min(268px, 72vw); }
+.slider--cabe .slider__controles { display: none; }
 .slider__trilho {
-  display: flex; gap: 1.6rem;
+  display: flex; gap: 1.4rem;
   overflow-x: auto; scroll-snap-type: x mandatory;
-  padding: .5rem calc((100% - var(--largura-slide)) / 2) 1.5rem;
+  --margem: max(20px, calc((100% - 1160px) / 2));
+  padding: .5rem var(--margem) 1.5rem;
+  scroll-padding-inline: var(--margem);
   scrollbar-width: none; overscroll-behavior-x: contain;
 }
 .slider__trilho::-webkit-scrollbar { display: none; }
 .slider__trilho:focus-visible { outline: 2px solid var(--acento); outline-offset: -2px; }
 .slide {
   flex: 0 0 var(--largura-slide);
-  scroll-snap-align: center;
-  display: flex; flex-direction: column;
-  background: var(--superficie);
+  scroll-snap-align: start;
   border-radius: var(--raio);
   overflow: hidden;
-  box-shadow: 0 1px 0 var(--linha);
-  opacity: .5; transform: scale(.94);
-  transition: opacity .4s, transform .4s, box-shadow .4s;
+  transition: transform .3s, box-shadow .3s;
 }
-.slide.ativo { opacity: 1; transform: none; box-shadow: var(--sombra); }
+.slide:hover { transform: translateY(-4px); box-shadow: var(--sombra); }
 .slide__midia {
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 3 / 5;
   display: grid; place-items: center;
-  background: #ececec;
+  background: #e6e6e6;
 }
-.slide__corpo { display: flex; flex-direction: column; flex: 1; padding: 1.6rem 1.7rem 1.9rem; }
-.slide__titulo { font-size: 2rem; margin-bottom: .6rem; }
-.slide__descricao { color: var(--texto-suave); font-size: .98rem; }
-.slide__subtitulo {
-  font-size: .74rem; font-weight: 500; letter-spacing: .2em; text-transform: uppercase;
-  margin: .4rem 0 .4rem;
+.slide__midia .mockup--celular { height: 86%; }
+
+/* Planos (valores) */
+.planos { display: grid; grid-template-columns: repeat(2, minmax(0, 420px)); justify-content: center; gap: 1.6rem; }
+.planos--um { grid-template-columns: minmax(0, 420px); }
+.plano {
+  position: relative;
+  display: flex; flex-direction: column;
+  border: 1px solid var(--texto); border-radius: var(--raio);
+  padding: 2.4rem 2.2rem 2.2rem;
+  background: var(--superficie);
 }
-.slide__lista { list-style: none; margin: 0 0 1.4rem; padding: 0; font-size: .95rem; }
-.slide__lista li { padding: .5rem 0 .5rem 1.5rem; border-top: 1px solid var(--linha); position: relative; }
-.slide__lista li::before { content: "✓"; position: absolute; left: 0; color: var(--texto-suave); }
-.slide__preco {
-  display: flex; justify-content: space-between; align-items: baseline;
-  margin-top: auto; padding: 1rem 0 1.2rem; border-top: 1px solid var(--texto);
+.plano--destaque { background: var(--escuro); color: #fff; border-color: var(--escuro); box-shadow: var(--sombra); }
+.plano__selo {
+  position: absolute; top: -.85rem; left: 2.2rem;
+  background: #fff; color: var(--texto); border: 1px solid var(--escuro);
+  font-size: .7rem; letter-spacing: .18em; text-transform: uppercase;
+  padding: .3rem .9rem; border-radius: 999px;
 }
-.slide__preco span { font-size: .74rem; letter-spacing: .2em; text-transform: uppercase; color: var(--texto-suave); }
-.slide__preco strong { font-family: var(--serifa); font-size: 2rem; font-weight: 600; line-height: 1; }
-.slide__acoes { display: flex; flex-wrap: wrap; gap: .6rem; }
-.slide__acoes .btn { flex: 1 1 auto; justify-content: center; }
+.plano__nome { font-size: 2rem; margin-bottom: .4rem; }
+.plano__resumo { color: var(--texto-suave); font-size: .96rem; }
+.plano--destaque .plano__resumo { color: #bdbdbd; }
+.plano__preco { font-family: var(--serifa); font-size: 3rem; font-weight: 600; line-height: 1; margin: .4rem 0 1.6rem; }
+.plano__lista { list-style: none; margin: 0 0 2rem; padding: 0; }
+.plano__lista li { padding: .6rem 0 .6rem 1.6rem; border-top: 1px solid var(--linha); position: relative; }
+.plano--destaque .plano__lista li { border-color: #333; }
+.plano__lista li::before { content: "✓"; position: absolute; left: 0; color: var(--texto-suave); }
+.plano--destaque .plano__lista li::before { color: #9e9e9e; }
+.plano .btn { margin-top: auto; justify-content: center; }
+
+/* Quadro "Valores" no topo das páginas de convite */
+.inclui--valores { display: block; text-decoration: none; transition: box-shadow .25s, transform .25s; }
+.inclui--valores:hover { box-shadow: var(--sombra); transform: translateY(-2px); }
+.inclui--valores li { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; padding-left: 0; }
+.inclui--valores li::before { content: none; }
+.inclui--valores strong { font-family: var(--serifa); font-size: 1.6rem; font-weight: 600; }
+.inclui--valores .servico__link { display: inline-block; margin-top: 1.2rem; }
 
 .slider__controles {
   display: flex; align-items: center; justify-content: center; gap: 1.2rem;
@@ -493,6 +500,7 @@ p { margin: 0 0 1em; }
   .extras__lista { grid-template-columns: 1fr; }
   .pag-hero__grid { grid-template-columns: 1fr; gap: 3rem; }
   .passos { grid-template-columns: repeat(2, 1fr); gap: 2rem 1.4rem; }
+  .planos { grid-template-columns: minmax(0, 480px); gap: 2.2rem; }
 }
 
 @media (max-width: 760px) {
@@ -528,6 +536,7 @@ p { margin: 0 0 1em; }
   .servico { padding: 1.8rem 1.6rem; }
   .servicos, .servicos--3 { grid-template-columns: 1fr; }
   .slider__trilho { gap: 1rem; }
+  .plano { padding: 2.2rem 1.6rem 1.8rem; }
   .zoom__seta { display: none; }
   .zoom__miniaturas { justify-content: flex-start; }
   .passos { grid-template-columns: 1fr; }

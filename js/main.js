@@ -192,7 +192,7 @@
       if (!alvo) continue;
       PAGINAS.filter((p) => p.grupo === grupo).forEach((p) =>
         alvo.append(
-          el("a", { class: "servico", href: p.id + ".html" + (grupo === "celebracoes" ? "#modelos" : "") },
+          el("a", { class: "servico", href: p.id + ".html" + (grupo === "celebracoes" ? "#referencias" : "") },
             el("h3", {}, p.nome),
             el("p", {}, p.resumo),
             el("span", { class: "servico__link" }, grupo === "celebracoes" ? "Ver convites" : "Ver página")
@@ -202,62 +202,40 @@
     }
   }
 
-  /* ---------- Slide de convites ---------- */
-  function criarSlide(c, pagina) {
-    const acoes = el("div", { class: "slide__acoes" },
-      el("a", {
-        class: "btn",
-        href: whatsUrl(`Olá! Vi o modelo "${c.modelo}" e gostaria de fazer o convite de ${pagina.nome.toLowerCase()}.`),
-        target: "_blank",
-        rel: "noopener",
-      }, "Quero este modelo")
-    );
-    if (c.link) {
-      acoes.append(el("a", { class: "btn btn--linha", href: c.link, target: "_blank", rel: "noopener" }, "Ver demonstração"));
-    }
-    return el("article", { class: "slide", "aria-roledescription": "slide" },
-      midiaComZoom("slide__midia", criarMockup({ nome: c.modelo, imagem: c.imagem }, "celular"), c.imagem, c.modelo),
-      el("div", { class: "slide__corpo" },
-        el("h3", { class: "slide__titulo" }, c.modelo),
-        el("p", { class: "slide__descricao" }, c.descricao),
-        el("h4", { class: "slide__subtitulo" }, "O que vai neste convite"),
-        el("ul", { class: "slide__lista" }, ...c.inclui.map((item) => el("li", {}, item))),
-        el("div", { class: "slide__preco" },
-          el("span", {}, "Valor"),
-          el("strong", {}, c.preco || pagina.preco || "")
-        ),
-        acoes
+  /* ---------- Slide de referências (trabalhos já feitos) ---------- */
+  function criarSlider(referencias) {
+    const trilho = el("div", { class: "slider__trilho", tabindex: "0", "aria-label": "Trabalhos já feitos — arraste para o lado" },
+      ...referencias.map((r, i) =>
+        el("div", { class: "slide", "aria-roledescription": "slide" },
+          midiaComZoom("slide__midia", criarMockup({ nome: "Referência " + (i + 1), imagem: r.imagem }, "celular"), r.imagem, "Trabalho já feito")
+        )
       )
     );
-  }
-
-  function criarSlider(convites, pagina) {
-    const trilho = el("div", { class: "slider__trilho", tabindex: "0", "aria-label": "Modelos de convite — arraste para o lado" },
-      ...convites.map((c) => criarSlide(c, pagina))
-    );
-    const anterior = el("button", { type: "button", class: "slider__seta", "aria-label": "Modelo anterior" }, "←");
-    const proximo = el("button", { type: "button", class: "slider__seta", "aria-label": "Próximo modelo" }, "→");
+    const anterior = el("button", { type: "button", class: "slider__seta", "aria-label": "Anterior" }, "←");
+    const proximo = el("button", { type: "button", class: "slider__seta", "aria-label": "Próximo" }, "→");
     const contador = el("span", { class: "slider__contador", "aria-live": "polite" });
     const pontos = el("div", { class: "slider__pontos" },
-      ...convites.map((c, i) => el("button", { type: "button", class: "slider__ponto", "aria-label": `Ver modelo ${i + 1}: ${c.modelo}` }))
+      ...referencias.map((r, i) => el("button", { type: "button", class: "slider__ponto", "aria-label": `Ver trabalho ${i + 1}` }))
     );
 
     const slides = [...trilho.children];
     const irPara = (i) => {
       const s = slides[Math.max(0, Math.min(slides.length - 1, i))];
-      trilho.scrollTo({ left: s.offsetLeft - (trilho.clientWidth - s.clientWidth) / 2, behavior: "smooth" });
+      trilho.scrollTo({ left: s.offsetLeft - slides[0].offsetLeft, behavior: "smooth" });
     };
     let atual = 0;
     const atualizar = () => {
-      const centro = trilho.scrollLeft + trilho.clientWidth / 2;
-      atual = slides.reduce((melhor, s, i) =>
-        Math.abs(s.offsetLeft + s.clientWidth / 2 - centro) <
-        Math.abs(slides[melhor].offsetLeft + slides[melhor].clientWidth / 2 - centro) ? i : melhor, 0);
-      slides.forEach((s, i) => s.classList.toggle("ativo", i === atual));
+      // Slide mais próximo da borda esquerda; no fim da rolagem, o último
+      const inicio = trilho.scrollLeft + slides[0].offsetLeft;
+      const noFim = trilho.scrollLeft + trilho.clientWidth >= trilho.scrollWidth - 4;
+      atual = noFim ? slides.length - 1 : slides.reduce((melhor, s, i) =>
+        Math.abs(s.offsetLeft - inicio) < Math.abs(slides[melhor].offsetLeft - inicio) ? i : melhor, 0);
       [...pontos.children].forEach((b, i) => b.setAttribute("aria-current", String(i === atual)));
       contador.textContent = `${atual + 1} / ${slides.length}`;
       anterior.disabled = atual === 0;
       proximo.disabled = atual === slides.length - 1;
+      // Se todos os trabalhos cabem na tela, as setas não são necessárias
+      slider.classList.toggle("slider--cabe", trilho.scrollWidth <= trilho.clientWidth + 4);
     };
     anterior.addEventListener("click", () => irPara(atual - 1));
     proximo.addEventListener("click", () => irPara(atual + 1));
@@ -270,17 +248,53 @@
     window.addEventListener("resize", atualizar);
     requestAnimationFrame(atualizar);
 
-    return el("div", { class: "slider" },
+    const slider = el("div", { class: "slider" },
       trilho,
       el("div", { class: "slider__controles" }, anterior, pontos, contador, proximo)
+    );
+    return slider;
+  }
+
+  /* ---------- Planos (valores) das páginas de convite ---------- */
+  function criarPlanos(p) {
+    return el("div", { class: "planos" + (p.planos.length === 1 ? " planos--um" : "") },
+      ...p.planos.map((plano) =>
+        el("article", { class: "plano" + (plano.destaque ? " plano--destaque" : "") },
+          plano.destaque ? el("span", { class: "plano__selo" }, plano.destaque) : null,
+          el("h3", { class: "plano__nome" }, plano.nome),
+          el("p", { class: "plano__resumo" }, plano.resumo),
+          el("p", { class: "plano__preco" }, plano.preco),
+          el("ul", { class: "plano__lista" }, ...plano.inclui.map((item) => el("li", {}, item))),
+          el("a", {
+            class: "btn" + (plano.destaque ? " btn--claro" : ""),
+            href: whatsUrl(`Olá! Vi o site e gostaria de fazer o convite de ${p.nome.toLowerCase()} — ${plano.nome} (${plano.preco}).`),
+            target: "_blank",
+            rel: "noopener",
+          }, "Quero o " + plano.nome.toLowerCase())
+        )
+      )
     );
   }
 
   /* ---------- Páginas de serviço ---------- */
   function montarPaginaServico(p) {
     document.title = `${p.nome} · MKS Marketing`;
-    const ehConvite = p.grupo === "celebracoes";
-    const convites = CONVITES.filter((c) => c.paginas.includes(p.id));
+    const ehConvite = p.grupo === "celebracoes" && p.planos;
+    const referencias = REFERENCIAS.filter((r) => r.paginas.includes(p.id));
+
+    // Nas páginas de convite, o quadro ao lado do título mostra os valores
+    const quadro = ehConvite
+      ? el("a", { class: "inclui inclui--valores", href: "#valores" },
+          el("h2", { class: "inclui__titulo" }, "Valores"),
+          el("ul", {}, ...p.planos.map((plano) =>
+            el("li", {}, el("span", {}, plano.nome), el("strong", {}, plano.preco))
+          )),
+          el("span", { class: "servico__link" }, "Ver o que vai no convite")
+        )
+      : el("div", { class: "inclui" },
+          el("h2", { class: "inclui__titulo" }, "O que pode incluir"),
+          el("ul", {}, ...p.inclui.map((item) => el("li", {}, item)))
+        );
 
     const hero = el("section", { class: "pag-hero" },
       el("div", { class: "container pag-hero__grid" },
@@ -289,42 +303,42 @@
           el("p", { class: "sobretitulo" }, p.nome),
           el("h1", {}, comItalico(p.titulo)),
           el("p", { class: "hero__intro" }, p.intro),
-          p.preco && ehConvite
-            ? el("p", { class: "preco-destaque" }, "Convite interativo ", el("strong", {}, p.preco))
-            : null,
           el("div", { class: "hero__acoes" },
             el("a", { href: "#", "data-whatsapp": "", class: "btn" }, "Solicitar orçamento"),
             ehConvite
-              ? el("a", { href: "#modelos", class: "link-seta" }, "Ver modelos")
+              ? el("a", { href: "#referencias", class: "link-seta" }, "Ver trabalhos")
               : el("a", { href: "#projetos", class: "link-seta" }, "Ver projetos")
           )
         ),
-        el("div", { class: "inclui" },
-          el("h2", { class: "inclui__titulo" }, "O que pode incluir"),
-          el("ul", {}, ...p.inclui.map((item) => el("li", {}, item)))
-        )
+        quadro
       )
     );
 
     const secoes = [hero];
 
     if (ehConvite) {
-      const semModelos = el("div", { class: "container" },
-        el("p", {
-          class: "projetos-vazio",
-          html: `Novos modelos de ${p.nome.toLowerCase()} chegam em breve.<br />Enquanto isso, crio um convite exclusivo para você: <a href="#" data-whatsapp>fale comigo</a>.`,
-        })
-      );
       secoes.push(
-        el("section", { class: "secao secao--tom", id: "modelos" },
+        el("section", { class: "secao secao--tom", id: "referencias" },
           el("div", { class: "container" },
             el("header", { class: "secao__topo" },
-              el("p", { class: "sobretitulo" }, "Modelos de convite"),
-              el("h2", {}, "Escolha o seu estilo"),
-              convites.length && p.modelosIntro ? el("p", { class: "secao__intro" }, p.modelosIntro) : null
+              el("p", { class: "sobretitulo" }, "Referências"),
+              el("h2", {}, "Trabalhos já feitos"),
+              el("p", { class: "secao__intro" },
+                referencias.length
+                  ? "Alguns convites que já criei, para inspirar. O tema é escolhido por vocês — cada convite é feito do zero. Toque para ampliar."
+                  : "Novas referências chegam em breve. O tema é escolhido por vocês — cada convite é feito do zero.")
             )
           ),
-          convites.length ? criarSlider(convites, p) : semModelos
+          referencias.length ? criarSlider(referencias) : null
+        ),
+        el("section", { class: "secao", id: "valores" },
+          el("div", { class: "container" },
+            el("header", { class: "secao__topo" },
+              el("p", { class: "sobretitulo" }, "Valores"),
+              el("h2", {}, "O que vai no convite")
+            ),
+            criarPlanos(p)
+          )
         )
       );
     }
@@ -332,7 +346,7 @@
     const passos = p.passos || (ehConvite ? PASSOS_CONVITE : null);
     if (passos) {
       secoes.push(
-        el("section", { class: "secao" },
+        el("section", { class: "secao secao--tom" },
           el("div", { class: "container" },
             el("header", { class: "secao__topo" },
               el("p", { class: "sobretitulo" }, "Passo a passo"),
@@ -347,8 +361,8 @@
     }
 
     const lista = PROJETOS.filter((x) => x.paginas.includes(p.id));
-    // Nas páginas de convite, os trabalhos ficam no slide; a grade só aparece se houver outros projetos
-    if (!ehConvite || lista.length) {
+    // Nas páginas de convite, os trabalhos ficam nas referências; a grade é para os outros serviços
+    if (!ehConvite) {
       const grade = el("div", { class: "grade", "aria-live": "polite" });
       const vazio = blocoVazio();
       secoes.push(
@@ -374,7 +388,7 @@
         ),
         el("div", { class: "outros" },
           ...PAGINAS.filter((x) => x.id !== p.id).map((x) =>
-            el("a", { class: "outros__item", href: x.id + ".html" }, x.nome)
+            el("a", { class: "outros__item", href: x.id + ".html" + (x.grupo === "celebracoes" ? "#referencias" : "") }, x.nome)
           )
         )
       )

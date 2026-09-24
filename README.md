@@ -27,7 +27,8 @@ O conteúdo das páginas de serviço (título, texto, "O que pode incluir") fica
 | Número e mensagem do WhatsApp | `js/config.js` → `WHATSAPP_NUMERO`, `WHATSAPP_MENSAGEM` |
 | Textos de uma página de serviço | `js/config.js` → `PAGINAS` |
 | Projetos | `js/config.js` → `PROJETOS` |
-| Modelos e valor dos convites | `js/config.js` → `CONVITES` |
+| Trabalhos de convite (referências) | `js/config.js` → `REFERENCIAS` |
+| Valores e o que vai no convite | `js/config.js` → `PAGINAS` → `planos` |
 | Textos da página inicial (início e contato) | `index.html` |
 | Cores e fontes | `css/style.css` → bloco `:root` no topo |
 
@@ -55,21 +56,16 @@ A página inicial não mostra projetos: eles ficam na página de cada serviço.
 O botão "Ver demonstração" só aparece quando `link` está preenchido.
 Um projeto pode aparecer em mais de uma página (ex.: `["sites", "casamento"]`).
 
-## Convites (slide em cada página de comemoração)
+## Convites (casamento, infantil, 15 anos, aniversários)
 
-Os convites **não aparecem na página inicial**. Cada comemoração tem a sua página
-(casamento, infantil, 15 anos, aniversários de 20 a 50 anos), com os modelos em
-slide e a descrição e o valor embaixo de cada um. Enquanto uma página não tem
-modelos, ela mostra "Novos modelos chegam em breve".
+Cada comemoração tem a sua página, com:
 
-Em `paginas`, use o id da página: `"casamento"`, `"infantil"`, `"quinze-anos"`
-ou `"aniversarios"`. O valor fica em `preco` (na página e em cada modelo).
-
-Para adicionar um modelo, copie um bloco da lista `CONVITES` em `js/config.js`
-e troque `modelo`, `imagem`, `descricao`, `inclui` e `preco`.
-O cliente toca na imagem para ver o convite inteiro ampliado.
-O botão "Quero este modelo" já abre o WhatsApp com o nome do modelo.
-O passo a passo "Como funciona" fica em `PAGINAS` → casamento → `passos`.
+1. **Trabalhos já feitos** — só as imagens, sem nomes, em slide. O cliente toca para ampliar.
+   Para adicionar um, copie uma linha da lista `REFERENCIAS` em `js/config.js` e troque
+   a `imagem` e a página (`"casamento"`, `"infantil"`, `"quinze-anos"` ou `"aniversarios"`).
+2. **O que vai no convite** — os valores (planos). Ficam em `PAGINAS` → na página → `planos`.
+   No casamento: Convite básico (R$ 85,00) e Convite com painel (R$ 95,00).
+3. **Como funciona** — em `passos` (ou `PASSOS_CONVITE`, o padrão).
 
 ## Adicionar uma página de serviço
 
