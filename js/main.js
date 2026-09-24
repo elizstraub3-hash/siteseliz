@@ -108,7 +108,8 @@
   const zoomFechar = el("button", { type: "button", class: "zoom__fechar", "aria-label": "Fechar" }, "✕");
   const zoomAnterior = el("button", { type: "button", class: "zoom__seta zoom__seta--esq", "aria-label": "Anterior" }, "←");
   const zoomProximo = el("button", { type: "button", class: "zoom__seta zoom__seta--dir", "aria-label": "Próximo" }, "→");
-  zoom.append(el("div", { class: "zoom__topo" }, zoomTitulo, zoomFechar), zoomRolagem, zoomAnterior, zoomProximo);
+  const zoomMiniaturas = el("div", { class: "zoom__miniaturas", "aria-label": "Outros trabalhos" });
+  zoom.append(el("div", { class: "zoom__topo" }, zoomTitulo, zoomFechar), zoomRolagem, zoomMiniaturas, zoomAnterior, zoomProximo);
   document.body.append(zoom);
 
   function mostrarZoom(i) {
@@ -118,11 +119,21 @@
     zoomImg.alt = "Print completo: " + item.titulo;
     zoomTitulo.textContent = zoomLista.length > 1 ? `${item.titulo} · ${zoomAtual + 1} / ${zoomLista.length}` : item.titulo;
     zoomRolagem.scrollTop = 0;
-    zoomAnterior.hidden = zoomProximo.hidden = zoomLista.length < 2;
+    zoomAnterior.hidden = zoomProximo.hidden = zoomMiniaturas.hidden = zoomLista.length < 2;
+    [...zoomMiniaturas.children].forEach((b, j) => b.setAttribute("aria-current", String(j === zoomAtual)));
+    const ativa = zoomMiniaturas.children[zoomAtual];
+    if (ativa) ativa.scrollIntoView({ block: "nearest", inline: "center" });
   }
   function abrirZoom(lista, i) {
     zoomLista = lista;
     zoomOrigem = document.activeElement;
+    // Miniaturas de todos os trabalhos da página, para passar de um para outro
+    zoomMiniaturas.replaceChildren(...lista.map((item, j) => {
+      const b = el("button", { type: "button", class: "zoom__miniatura", "aria-label": "Ver " + item.titulo },
+        el("img", { src: item.src, alt: "", loading: "lazy" }));
+      b.addEventListener("click", () => mostrarZoom(j));
+      return b;
+    }));
     mostrarZoom(i);
     zoom.hidden = false;
     document.body.classList.add("sem-rolagem");
