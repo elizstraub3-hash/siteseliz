@@ -24,6 +24,7 @@ O conteúdo das páginas de serviço (título, texto, "O que pode incluir") fica
 | Número e mensagem do WhatsApp | `js/config.js` → `WHATSAPP_NUMERO`, `WHATSAPP_MENSAGEM` |
 | Textos de uma página de serviço | `js/config.js` → `PAGINAS` |
 | Projetos | `js/config.js` → `PROJETOS` |
+| Modelos e valor dos convites | `js/config.js` → `CONVITES` |
 | Textos da página inicial (início e contato) | `index.html` |
 | Cores e fontes | `css/style.css` → bloco `:root` no topo |
 
@@ -48,6 +49,16 @@ O conteúdo das páginas de serviço (título, texto, "O que pode incluir") fica
 O print aparece automaticamente dentro de um mockup de celular ou notebook.
 O botão "Ver demonstração" só aparece quando `link` está preenchido.
 Um projeto pode aparecer em mais de uma página (ex.: `["sites", "casamento"]`).
+
+## Convites (slide na página de casamento)
+
+Os convites **não aparecem na página inicial**. Eles ficam em slide na página
+de casamento (`casamento.html`), com a descrição e o valor embaixo de cada modelo.
+
+Para adicionar um modelo, copie um bloco da lista `CONVITES` em `js/config.js`
+e troque `modelo`, `exemplo`, `imagem`, `descricao`, `inclui` e `preco`.
+O botão "Quero este modelo" já abre o WhatsApp com o nome do modelo.
+O passo a passo "Como funciona" fica em `PAGINAS` → casamento → `passos`.
 
 ## Adicionar uma página de serviço
 

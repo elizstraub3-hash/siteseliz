@@ -123,6 +123,14 @@ const PAGINAS = [
     ],
     mockup: "celular",
     orcamento: "convite ou site de casamento",
+    // Só nas páginas com convites (lista CONVITES abaixo):
+    preco: "R$ 85,00",
+    passos: [
+      ["Escolha o modelo", "Passe os modelos e escolha o estilo que mais combina com vocês."],
+      ["Envie as informações", "Nomes, data, horário, local, foto e a música do casal."],
+      ["Aprove a prévia", "Você confere o convite pronto antes de finalizar."],
+      ["Receba o link", "É só enviar aos convidados pelo WhatsApp."],
+    ],
   },
   {
     id: "infantil",
@@ -162,6 +170,68 @@ const PAGINAS = [
   },
 ];
 
+/* ---------- Convites (slide) ----------
+   Aparecem em slide na página indicada em "paginas" (ex.: casamento.html)
+   e NÃO aparecem na página inicial.
+
+   modelo    → nome do modelo (título do slide)
+   exemplo   → casal do exemplo mostrado no print
+   imagem    → print do convite no celular (em img/projetos/)
+   link      → demonstração (abre em nova aba). Deixe "" para não mostrar o botão.
+   descricao → texto curto sobre o estilo do convite
+   inclui    → lista "O que vai neste convite"
+   preco     → valor exibido no slide                                    */
+const CONVITES = [
+  {
+    modelo: "Clássico Botânico",
+    exemplo: "Francieli & Carlos Eduardo",
+    paginas: ["casamento"],
+    imagem: "img/projetos/francieli-carlos.jpg",
+    link: "", // convite real: https://convitefrancarlos.vercel.app/
+    descricao:
+      "Fundo com textura de papel, galhos delicados e monograma com as iniciais do casal. Elegante e atemporal.",
+    inclui: [
+      "Monograma com as iniciais do casal",
+      "Nomes, data e horário da cerimônia",
+      "Frase de abertura personalizada",
+      "Botão para tocar a música do casal",
+    ],
+    preco: "R$ 85,00",
+  },
+  {
+    modelo: "Azul & Dourado",
+    exemplo: "Claudia & Oséias",
+    paginas: ["casamento"],
+    imagem: "img/projetos/claudia-oseias.jpg",
+    link: "", // convite real: https://claudia-e-oseias.vercel.app/jantar.html
+    descricao:
+      "Moldura floral em azul e dourado, monograma sofisticado e uma mensagem carinhosa para os convidados.",
+    inclui: [
+      "Monograma com folhas douradas",
+      "Mensagem especial para os convidados",
+      "Data e horário em destaque",
+      "Player com a música do casal",
+    ],
+    preco: "R$ 85,00",
+  },
+  {
+    modelo: "Com Foto do Casal",
+    exemplo: "Lidiane & Celio",
+    paginas: ["casamento"],
+    imagem: "img/projetos/lidiane-celio.jpg",
+    link: "", // convite real: https://convite-lidiane-celio.vercel.app/jantar.html
+    descricao:
+      "A foto do casal abre o convite e as informações do evento vêm logo abaixo, organizadas em cartões.",
+    inclui: [
+      "Foto do casal na capa",
+      "Local, endereço, data e horário",
+      "Contagem para o grande dia",
+      "Player com a música do casal",
+    ],
+    preco: "R$ 85,00",
+  },
+];
+
 /* ---------- Projetos ----------
    Para adicionar um trabalho, copie um bloco { ... }, cole no fim da lista
    e troque as informações.
@@ -176,31 +246,10 @@ const PAGINAS = [
               mostrar só a imagem, sem botão.                              */
 const PROJETOS = [
   {
-    nome: "Francieli & Carlos Eduardo",
-    tipo: "Convite interativo de casamento",
-    paginas: ["casamento"],
-    imagem: "img/projetos/francieli-carlos.jpg",
-    link: "", // convite real: https://convitefrancarlos.vercel.app/
-  },
-  {
     nome: "Fernanda & Alex",
     tipo: "Site de casamento · Casamentos.com",
     paginas: ["casamento", "sites"],
     imagem: "img/projetos/fernanda-alex.jpg",
     link: "", // site real: https://casamentos-com.vercel.app/
-  },
-  {
-    nome: "Claudia & Oséias",
-    tipo: "Convite interativo · Jantar de celebração",
-    paginas: ["eventos"],
-    imagem: "img/projetos/claudia-oseias.jpg",
-    link: "", // convite real: https://claudia-e-oseias.vercel.app/jantar.html
-  },
-  {
-    nome: "Lidiane & Celio",
-    tipo: "Convite interativo · Jantar de celebração",
-    paginas: ["eventos"],
-    imagem: "img/projetos/lidiane-celio.jpg",
-    link: "", // convite real: https://convite-lidiane-celio.vercel.app/jantar.html
   },
 ];

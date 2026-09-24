@@ -137,13 +137,16 @@
     const filtrosEl = document.getElementById("filtros");
     const gradeEl = document.getElementById("grade-projetos");
     const vazioEl = document.getElementById("projetos-vazio");
-    const filtros = [{ id: "todos", filtro: "Todos" }, ...PAGINAS];
+    // Convites e celebrações têm páginas próprias; aqui entram só os negócios
+    const paginasNegocio = PAGINAS.filter((p) => p.grupo === "negocios");
+    const projetosNegocio = PROJETOS.filter((p) => paginasNegocio.some((x) => p.paginas.includes(x.id)));
+    const filtros = [{ id: "todos", filtro: "Todos" }, ...paginasNegocio];
 
     const aplicar = (id) => {
       filtrosEl.querySelectorAll(".filtro").forEach((b) =>
         b.setAttribute("aria-pressed", String(b.dataset.filtro === id))
       );
-      const lista = id === "todos" ? PROJETOS : PROJETOS.filter((p) => p.paginas.includes(id));
+      const lista = id === "todos" ? projetosNegocio : projetosNegocio.filter((p) => p.paginas.includes(id));
       const pag = PAGINAS.find((p) => p.id === id);
       preencherGrade(gradeEl, vazioEl, lista, pag ? pag.nome.toLowerCase() : "");
     };
@@ -154,11 +157,101 @@
       filtrosEl.append(b);
     });
     aplicar("todos");
+
+    // Chamada para as páginas que têm convites em slide
+    PAGINAS.filter((p) => CONVITES.some((c) => c.paginas.includes(p.id))).forEach((p) =>
+      vazioEl.after(
+        el("a", { class: "chamada-convites", href: p.id + ".html#modelos" },
+          el("div", {},
+            el("p", { class: "sobretitulo" }, "Convites de " + p.nome.toLowerCase()),
+            el("h3", {}, "Veja os modelos de convite"),
+            el("p", {}, "Passe os modelos e escolha o estilo de vocês." + (p.preco ? ` ${p.preco} cada convite.` : ""))
+          ),
+          el("span", { class: "link-seta" }, "Ver modelos")
+        )
+      )
+    );
+  }
+
+  /* ---------- Slide de convites ---------- */
+  function criarSlide(c, pagina) {
+    const acoes = el("div", { class: "slide__acoes" },
+      el("a", {
+        class: "btn",
+        href: whatsUrl(`Olá! Vi o modelo "${c.modelo}" e gostaria de fazer o convite de ${pagina.nome.toLowerCase()}.`),
+        target: "_blank",
+        rel: "noopener",
+      }, "Quero este modelo")
+    );
+    if (c.link) {
+      acoes.append(el("a", { class: "btn btn--linha", href: c.link, target: "_blank", rel: "noopener" }, "Ver demonstração"));
+    }
+    return el("article", { class: "slide", "aria-roledescription": "slide" },
+      el("div", { class: "slide__midia" }, criarMockup({ nome: c.modelo, imagem: c.imagem }, "celular")),
+      el("div", { class: "slide__corpo" },
+        el("p", { class: "card__categoria" }, "Exemplo: " + c.exemplo),
+        el("h3", { class: "slide__titulo" }, c.modelo),
+        el("p", { class: "slide__descricao" }, c.descricao),
+        el("h4", { class: "slide__subtitulo" }, "O que vai neste convite"),
+        el("ul", { class: "slide__lista" }, ...c.inclui.map((item) => el("li", {}, item))),
+        el("div", { class: "slide__preco" },
+          el("span", {}, "Valor"),
+          el("strong", {}, c.preco || pagina.preco || "")
+        ),
+        acoes
+      )
+    );
+  }
+
+  function criarSlider(convites, pagina) {
+    const trilho = el("div", { class: "slider__trilho", tabindex: "0", "aria-label": "Modelos de convite — arraste para o lado" },
+      ...convites.map((c) => criarSlide(c, pagina))
+    );
+    const anterior = el("button", { type: "button", class: "slider__seta", "aria-label": "Modelo anterior" }, "←");
+    const proximo = el("button", { type: "button", class: "slider__seta", "aria-label": "Próximo modelo" }, "→");
+    const contador = el("span", { class: "slider__contador", "aria-live": "polite" });
+    const pontos = el("div", { class: "slider__pontos" },
+      ...convites.map((c, i) => el("button", { type: "button", class: "slider__ponto", "aria-label": `Ver modelo ${i + 1}: ${c.modelo}` }))
+    );
+
+    const slides = [...trilho.children];
+    const irPara = (i) => {
+      const s = slides[Math.max(0, Math.min(slides.length - 1, i))];
+      trilho.scrollTo({ left: s.offsetLeft - (trilho.clientWidth - s.clientWidth) / 2, behavior: "smooth" });
+    };
+    let atual = 0;
+    const atualizar = () => {
+      const centro = trilho.scrollLeft + trilho.clientWidth / 2;
+      atual = slides.reduce((melhor, s, i) =>
+        Math.abs(s.offsetLeft + s.clientWidth / 2 - centro) <
+        Math.abs(slides[melhor].offsetLeft + slides[melhor].clientWidth / 2 - centro) ? i : melhor, 0);
+      slides.forEach((s, i) => s.classList.toggle("ativo", i === atual));
+      [...pontos.children].forEach((b, i) => b.setAttribute("aria-current", String(i === atual)));
+      contador.textContent = `${atual + 1} / ${slides.length}`;
+      anterior.disabled = atual === 0;
+      proximo.disabled = atual === slides.length - 1;
+    };
+    anterior.addEventListener("click", () => irPara(atual - 1));
+    proximo.addEventListener("click", () => irPara(atual + 1));
+    [...pontos.children].forEach((b, i) => b.addEventListener("click", () => irPara(i)));
+    trilho.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowLeft") { e.preventDefault(); irPara(atual - 1); }
+      if (e.key === "ArrowRight") { e.preventDefault(); irPara(atual + 1); }
+    });
+    trilho.addEventListener("scroll", atualizar, { passive: true });
+    window.addEventListener("resize", atualizar);
+    requestAnimationFrame(atualizar);
+
+    return el("div", { class: "slider" },
+      trilho,
+      el("div", { class: "slider__controles" }, anterior, pontos, contador, proximo)
+    );
   }
 
   /* ---------- Páginas de serviço ---------- */
   function montarPaginaServico(p) {
     document.title = `${p.nome} · MKS Marketing`;
+    const convites = CONVITES.filter((c) => c.paginas.includes(p.id));
 
     const hero = el("section", { class: "pag-hero" },
       el("div", { class: "container pag-hero__grid" },
@@ -167,9 +260,14 @@
           el("p", { class: "sobretitulo" }, p.nome),
           el("h1", {}, comItalico(p.titulo)),
           el("p", { class: "hero__intro" }, p.intro),
+          p.preco && convites.length
+            ? el("p", { class: "preco-destaque" }, "Convite interativo ", el("strong", {}, p.preco))
+            : null,
           el("div", { class: "hero__acoes" },
             el("a", { href: "#", "data-whatsapp": "", class: "btn" }, "Solicitar orçamento"),
-            el("a", { href: "#projetos", class: "link-seta" }, "Ver projetos")
+            convites.length
+              ? el("a", { href: "#modelos", class: "link-seta" }, "Ver modelos")
+              : el("a", { href: "#projetos", class: "link-seta" }, "Ver projetos")
           )
         ),
         el("div", { class: "inclui" },
@@ -179,20 +277,61 @@
       )
     );
 
+    const secoes = [hero];
+
+    if (convites.length) {
+      secoes.push(
+        el("section", { class: "secao secao--tom", id: "modelos" },
+          el("div", { class: "container" },
+            el("header", { class: "secao__topo" },
+              el("p", { class: "sobretitulo" }, "Modelos de convite"),
+              el("h2", {}, "Escolha o estilo de vocês"),
+              el("p", { class: "secao__intro" }, "Arraste para o lado e veja o que vai em cada convite. Todos são personalizados com os nomes, as cores e as informações do casal.")
+            )
+          ),
+          criarSlider(convites, p)
+        )
+      );
+    }
+
+    if (p.passos) {
+      secoes.push(
+        el("section", { class: "secao" },
+          el("div", { class: "container" },
+            el("header", { class: "secao__topo" },
+              el("p", { class: "sobretitulo" }, "Passo a passo"),
+              el("h2", {}, "Como funciona")
+            ),
+            el("ol", { class: "passos" },
+              ...p.passos.map(([titulo, texto]) => el("li", {}, el("strong", {}, titulo), el("span", {}, texto)))
+            )
+          )
+        )
+      );
+    }
+
     const lista = PROJETOS.filter((x) => x.paginas.includes(p.id));
-    const grade = el("div", { class: "grade", "aria-live": "polite" });
-    const vazio = blocoVazio();
-    const projetos = el("section", { class: "secao secao--tom", id: "projetos" },
-      el("div", { class: "container" },
-        el("header", { class: "secao__topo" },
-          el("p", { class: "sobretitulo" }, "Portfólio"),
-          el("h2", {}, "Projetos")
-        ),
-        grade,
-        vazio
-      )
-    );
-    preencherGrade(grade, vazio, lista, p.nome.toLowerCase());
+    // Com convites em slide, a grade só aparece se houver outros projetos (ex.: site do casamento)
+    if (!convites.length || lista.length) {
+      const grade = el("div", { class: "grade", "aria-live": "polite" });
+      const vazio = blocoVazio();
+      secoes.push(
+        el("section", { class: "secao secao--tom", id: "projetos" },
+          el("div", { class: "container" },
+            el("header", { class: "secao__topo" },
+              el("p", { class: "sobretitulo" }, convites.length ? "Vá além do convite" : "Portfólio"),
+              el("h2", {}, convites.length ? "Site do casamento" : "Projetos"),
+              convites.length
+                ? el("p", { class: "secao__intro" }, "Um site completo com todas as informações do grande dia. Valor sob orçamento.")
+                : null
+            ),
+            grade,
+            vazio
+          )
+        )
+      );
+      preencherGrade(grade, vazio, lista, p.nome.toLowerCase());
+    }
 
     const outros = el("section", { class: "secao" },
       el("div", { class: "container" },
@@ -208,7 +347,7 @@
       )
     );
 
-    document.getElementById("pagina").append(hero, projetos, outros);
+    document.getElementById("pagina").append(...secoes, outros);
   }
 
   /* ---------- Bloco de contato nas páginas de serviço ---------- */
