@@ -321,6 +321,8 @@ const REFERENCIAS = [
   { paginas: ["casamento"], imagem: "img/projetos/claudia-oseias.jpg" }, // claudia-e-oseias.vercel.app
   { paginas: ["casamento"], imagem: "img/projetos/lidiane-celio.jpg" }, // convite-lidiane-celio.vercel.app
   { paginas: ["casamento"], imagem: "img/projetos/fernanda-alex.jpg" }, // casamentos-com.vercel.app
+  // Caio & Carol (caio-e-carol.vercel.app): tire a "//" do início da linha abaixo quando o print estiver em img/projetos/caio-carol.jpg
+  // { paginas: ["casamento"], imagem: "img/projetos/caio-carol.jpg" },
   // Sem imagem: aparece um cartão que abre o site. Com imagem, ela aparece com zoom.
   { paginas: ["lojas"], titulo: "Loja de roupas", link: "https://neneve.vercel.app/", imagem: "" },
 ];
