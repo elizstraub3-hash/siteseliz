@@ -208,12 +208,14 @@
       ...referencias.map((r, i) =>
         r.imagem
           ? el("div", { class: "slide", "aria-roledescription": "slide" },
-              midiaComZoom("slide__midia", criarMockup({ nome: "Referência " + (i + 1), imagem: r.imagem }, "celular"), r.imagem, "Trabalho já feito")
+              midiaComZoom("slide__midia", criarMockup({ nome: "Referência " + (i + 1), imagem: r.imagem }, "celular"), r.imagem, "Trabalho já feito"),
+              // Com link: botão para abrir o convite funcionando
+              r.link ? el("a", { class: "btn btn--linha slide__exemplo", href: r.link, target: "_blank", rel: "noopener" }, r.botao || "Veja um exemplo") : null
             )
           : el("a", { class: "slide slide--link", href: r.link, target: "_blank", rel: "noopener", "aria-roledescription": "slide" },
               el("div", { class: "slide__midia" },
                 el("span", { class: "slide__rotulo" }, r.titulo || "Trabalho já feito"),
-                el("span", { class: "link-seta" }, "Ver o site funcionando")
+                el("span", { class: "link-seta" }, r.botao || "Ver o site funcionando")
               )
             )
       )

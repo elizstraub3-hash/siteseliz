@@ -571,3 +571,6 @@ p { margin: 0 0 1em; }
 /* Assinatura do rodapé */
 .rodape__assinatura { margin: 0; font-size: .95rem; letter-spacing: .03em; }
 .rodape__assinatura .marca { margin-left: .2rem; }
+
+/* Botão "Veja um exemplo" abaixo de uma referência com imagem */
+.slide__exemplo { display: flex; justify-content: center; margin: .9rem auto 0; width: fit-content; }

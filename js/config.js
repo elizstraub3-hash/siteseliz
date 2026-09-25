@@ -315,14 +315,15 @@ const EXTRAS = {
              "quinze-anos", "aniversarios", "lojas"…
    imagem  → print da tela no celular (em img/projetos/)
    link    → (opcional) site no ar; usado quando ainda não há imagem
-   titulo  → (opcional) texto do cartão quando não há imagem           */
+   titulo  → (opcional) texto do cartão quando não há imagem
+   botao   → (opcional) texto do link (ex.: "Veja um exemplo")           */
 const REFERENCIAS = [
+  // Caio & Carol: exemplo clicável. Quando tiver o print, coloque em imagem: "img/projetos/caio-carol.jpg"
+  { paginas: ["casamento"], titulo: "Convite de casamento", link: "https://caio-e-carol.vercel.app/", botao: "Veja um exemplo", imagem: "" },
   { paginas: ["casamento"], imagem: "img/projetos/francieli-carlos.jpg" }, // convitefrancarlos.vercel.app
   { paginas: ["casamento"], imagem: "img/projetos/claudia-oseias.jpg" }, // claudia-e-oseias.vercel.app
   { paginas: ["casamento"], imagem: "img/projetos/lidiane-celio.jpg" }, // convite-lidiane-celio.vercel.app
   { paginas: ["casamento"], imagem: "img/projetos/fernanda-alex.jpg" }, // casamentos-com.vercel.app
-  // Caio & Carol (caio-e-carol.vercel.app): tire a "//" do início da linha abaixo quando o print estiver em img/projetos/caio-carol.jpg
-  // { paginas: ["casamento"], imagem: "img/projetos/caio-carol.jpg" },
   // Sem imagem: aparece um cartão que abre o site. Com imagem, ela aparece com zoom.
   { paginas: ["lojas"], titulo: "Loja de roupas", link: "https://neneve.vercel.app/", imagem: "" },
 ];
