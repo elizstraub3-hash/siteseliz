@@ -91,7 +91,7 @@
           target: "_blank",
           rel: "noopener",
           "aria-label": "Ver demonstração do projeto " + p.nome,
-        }, "Ver demonstração")
+        }, p.botao || "Ver demonstração")
       );
     }
     return el("article", { class: "card" }, midiaComZoom("card__midia", criarMockup(p, tipoMockup), p.imagem, p.tipo), corpo);

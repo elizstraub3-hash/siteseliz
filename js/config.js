@@ -312,7 +312,8 @@ const REFERENCIAS = [
               Ele aparece automaticamente dentro de um mockup de celular ou
               notebook. Deixe "" para mostrar um espaço reservado.
    link     → endereço da demonstração (abre em nova aba). Deixe "" para
-              mostrar só a imagem, sem botão.                              */
+              mostrar só a imagem, sem botão.
+   botao    → (opcional) texto do botão; o padrão é "Ver demonstração"                              */
 const PROJETOS = [
   {
     nome: "Fernanda & Alex",
@@ -320,5 +321,13 @@ const PROJETOS = [
     paginas: ["sites"],
     imagem: "img/projetos/fernanda-alex.jpg",
     link: "", // site real: https://casamentos-com.vercel.app/
+  },
+  {
+    nome: "Victoria Guimarães",
+    tipo: "Site institucional",
+    paginas: ["sites"],
+    imagem: "", // falta o print: salve como img/projetos/victoria-guimaraes.jpg
+    link: "https://victoriaguimaraes.vercel.app/",
+    botao: "Ver site",
   },
 ];
