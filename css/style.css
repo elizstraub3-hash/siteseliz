@@ -266,10 +266,10 @@ p { margin: 0 0 1em; }
   border-radius: var(--raio);
   padding: 2.2rem 2rem 2rem;
   text-decoration: none;
-  border: 1px solid transparent;
+  border: 1px solid var(--texto);
   transition: border-color .25s, transform .25s, box-shadow .25s;
 }
-.servico:hover { border-color: var(--texto); transform: translateY(-3px); box-shadow: var(--sombra); }
+.servico:hover { transform: translateY(-3px); box-shadow: var(--sombra); }
 .servico p { color: var(--texto-suave); margin: 0 0 1.6rem; }
 .servico__link {
   margin-top: auto; font-size: .85rem; letter-spacing: .05em;
