@@ -307,13 +307,18 @@ p { margin: 0 0 1em; }
 .inclui li { padding: .8rem 0 .8rem 1.6rem; border-top: 1px solid var(--linha); position: relative; }
 .inclui li::before { content: "—"; position: absolute; left: 0; color: var(--texto-suave); }
 
-.outros { display: flex; flex-wrap: wrap; justify-content: center; gap: .7rem; }
-.outros__item {
-  font-family: var(--serifa); font-size: 1.3rem; font-style: italic;
-  padding: .4rem 1.4rem; border: 1px solid var(--linha); border-radius: 999px;
-  text-decoration: none; transition: border-color .2s, background .2s, color .2s;
+.sugestoes { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.4rem; }
+.sugestao {
+  display: flex; flex-direction: column;
+  background: var(--superficie);
+  border: 1px solid var(--texto); border-radius: var(--raio);
+  padding: 1.8rem 1.6rem;
+  text-decoration: none;
+  transition: transform .25s, box-shadow .25s;
 }
-.outros__item:hover { background: var(--escuro); border-color: var(--escuro); color: #fff; }
+.sugestao:hover { transform: translateY(-3px); box-shadow: var(--sombra); }
+.sugestao h3 { font-size: 1.45rem; }
+.sugestao p { color: var(--texto-suave); font-size: .95rem; margin: 0 0 1.4rem; }
 
 /* ---------- Convites: preço, slide e passo a passo ---------- */
 .secao__intro { max-width: 34rem; margin: .4rem auto 0; color: var(--texto-suave); }
@@ -502,6 +507,7 @@ p { margin: 0 0 1em; }
    Responsivo
    ===================================================================== */
 @media (max-width: 960px) {
+  .sugestoes { grid-template-columns: repeat(2, 1fr); }
   .hero__grid { grid-template-columns: 1fr; gap: 3rem; }
   .hero__arte { height: 400px; max-width: 460px; width: 100%; margin-inline: auto; }
   .grade { grid-template-columns: repeat(2, 1fr); gap: 1.6rem; }
@@ -536,6 +542,11 @@ p { margin: 0 0 1em; }
 }
 
 @media (max-width: 600px) {
+  .sugestoes { gap: .75rem; }
+  .sugestao { padding: 1.1rem 1rem 1.2rem; }
+  .sugestao h3 { font-size: 1.15rem; }
+  .sugestao p { font-size: .82rem; line-height: 1.5; margin-bottom: 1rem; }
+  .sugestao .servico__link { font-size: .78rem; }
   body { font-size: 1rem; }
   .container { width: calc(100% - 32px); }
   .hero__arte { height: 330px; }

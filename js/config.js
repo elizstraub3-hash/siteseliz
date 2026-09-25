@@ -283,6 +283,30 @@ const PASSOS_CONVITE = [
   ["Receba o link", "É só enviar aos convidados pelo WhatsApp."],
 ];
 
+/* ---------- "Você pode gostar" (sugestões no fim de cada página) ----------
+   Para cada página, a lista de sugestões, na ordem em que aparecem.
+   Use o id de uma página (ex.: "lojas") ou o id de um item de EXTRAS abaixo.
+   No desktop aparecem 4 por linha; no celular, 2 por linha.              */
+const SUGESTOES = {
+  sites:          ["lojas", "catalogos", "google", "links"],
+  lojas:          ["catalogos", "sites", "planilhas", "google"],
+  catalogos:      ["lojas", "cardapios", "sites", "links"],
+  planilhas:      ["lojas", "catalogos", "sites", "links"],
+  casamento:      ["aniversarios", "quinze-anos", "infantil", "planilhas"],
+  infantil:       ["quinze-anos", "aniversarios", "casamento", "planilhas"],
+  "quinze-anos":  ["aniversarios", "infantil", "casamento", "planilhas"],
+  aniversarios:   ["quinze-anos", "casamento", "infantil", "planilhas"],
+};
+
+/* Serviços que ainda não têm página própria: o card abre o WhatsApp
+   já com o pedido de orçamento. */
+const EXTRAS = {
+  google:    { nome: "Presença no Google",             resumo: "Perfil da Empresa para aparecer na Pesquisa e no Maps." },
+  links:     { nome: "Páginas de links personalizadas", resumo: "Portfólio, loja, catálogo e contato em um só endereço." },
+  cardapios: { nome: "Cardápios digitais",             resumo: "Catálogo para restaurantes e delivery." },
+  vendas:    { nome: "Páginas de vendas",              resumo: "Uma oferta com foco em contato ou compra." },
+};
+
 /* ---------- Referências (trabalhos já feitos) ----------
    Aparecem em slide, só a imagem, sem nome nem descrição. O cliente toca
    para ampliar. NÃO aparecem na página inicial.
@@ -315,13 +339,7 @@ const REFERENCIAS = [
               mostrar só a imagem, sem botão.
    botao    → (opcional) texto do botão; o padrão é "Ver demonstração"                              */
 const PROJETOS = [
-  {
-    nome: "Fernanda & Alex",
-    tipo: "Site de casamento · Casamentos.com",
-    paginas: ["sites"],
-    imagem: "img/projetos/fernanda-alex.jpg",
-    link: "", // site real: https://casamentos-com.vercel.app/
-  },
+  // Fernanda & Alex (site de casamento) fica só na página Casamento, nas REFERENCIAS.
   {
     nome: "Victoria Guimarães",
     tipo: "Site institucional",

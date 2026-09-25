@@ -29,6 +29,7 @@ O conteúdo das páginas de serviço (título, texto, "O que pode incluir") fica
 | Projetos | `js/config.js` → `PROJETOS` |
 | Trabalhos de convite (referências) | `js/config.js` → `REFERENCIAS` |
 | Valores e o que vai no convite | `js/config.js` → `PAGINAS` → `planos` |
+| Sugestões "Você pode gostar" de cada página | `js/config.js` → `SUGESTOES` e `EXTRAS` |
 | Textos da página inicial (início e contato) | `index.html` |
 | Cores e fontes | `css/style.css` → bloco `:root` no topo |
 

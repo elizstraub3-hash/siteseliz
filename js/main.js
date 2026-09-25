@@ -284,6 +284,44 @@
   }
 
   /* ---------- Páginas de serviço ---------- */
+  /* ---------- "Você pode gostar" ---------- */
+  function montarSugestoes(id) {
+    const ids = (typeof SUGESTOES !== "undefined" && SUGESTOES[id]) || [];
+    const cards = ids.map((sid) => {
+      const pag = PAGINAS.find((x) => x.id === sid);
+      if (pag) {
+        return el("a", { class: "sugestao", href: pag.id + ".html" + (pag.planos ? "#referencias" : "") },
+          el("h3", {}, pag.nome),
+          el("p", {}, pag.resumo),
+          el("span", { class: "servico__link" }, pag.grupo === "celebracoes" ? "Ver convites" : "Ver página")
+        );
+      }
+      const extra = EXTRAS[sid];
+      if (!extra) return null;
+      return el("a", {
+        class: "sugestao",
+        href: whatsUrl(`Olá! Vi seu portfólio e gostaria de solicitar um orçamento de ${extra.nome.toLowerCase()}.`),
+        target: "_blank",
+        rel: "noopener",
+      },
+        el("h3", {}, extra.nome),
+        el("p", {}, extra.resumo),
+        el("span", { class: "servico__link" }, "Pedir orçamento")
+      );
+    }).filter(Boolean);
+    if (!cards.length) return null;
+
+    return el("section", { class: "secao" },
+      el("div", { class: "container" },
+        el("header", { class: "secao__topo" },
+          el("p", { class: "sobretitulo" }, "Sugestões"),
+          el("h2", {}, "Você pode gostar")
+        ),
+        el("div", { class: "sugestoes" }, ...cards)
+      )
+    );
+  }
+
   function montarPaginaServico(p) {
     document.title = `${p.nome} · MKS Marketing`;
     // Páginas com "planos" mostram: trabalhos já feitos + valores (convites, lojas…)
@@ -391,21 +429,9 @@
       preencherGrade(grade, vazio, lista, p.nome.toLowerCase());
     }
 
-    const outros = el("section", { class: "secao" },
-      el("div", { class: "container" },
-        el("header", { class: "secao__topo" },
-          el("p", { class: "sobretitulo" }, "Conheça também"),
-          el("h2", {}, "Outros serviços")
-        ),
-        el("div", { class: "outros" },
-          ...PAGINAS.filter((x) => x.id !== p.id).map((x) =>
-            el("a", { class: "outros__item", href: x.id + ".html" + (x.planos ? "#referencias" : "") }, x.nome)
-          )
-        )
-      )
-    );
+    const outros = montarSugestoes(p.id);
 
-    document.getElementById("pagina").append(...secoes, outros);
+    document.getElementById("pagina").append(...secoes, ...(outros ? [outros] : []));
   }
 
   /* ---------- Bloco de contato nas páginas de serviço ---------- */
