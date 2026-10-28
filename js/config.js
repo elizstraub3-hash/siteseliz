@@ -114,6 +114,7 @@ const PAGINAS = [
         nome: "Vídeo avulso",
         destaque: "Promoção Black",
         resumo: "Um vídeo motion para divulgar um produto, serviço ou promoção.",
+        precoAntigo: "R$ 220,00", // aparece riscado; apague esta linha quando a promoção acabar
         preco: "R$ 150,00",
         botao: "Quero o meu vídeo",
         inclui: [
@@ -126,8 +127,8 @@ const PAGINAS = [
       },
       {
         nome: "Pacote com 3 vídeos",
-        resumo: "Três vídeos para divulgar produtos diferentes ou uma campanha.",
-        preco: "Consulte", // defina o valor (sugestão: R$ 390,00)
+        resumo: "Três vídeos para divulgar produtos diferentes ou uma campanha. Sai R$ 130,00 cada.",
+        preco: "R$ 390,00",
         botao: "Quero o pacote",
         inclui: [
           "3 vídeos motion com textos animados",
@@ -136,14 +137,26 @@ const PAGINAS = [
         ],
       },
       {
-        nome: "Vídeos todos os dias",
-        resumo: "Conteúdo novo todo dia para o Status e as redes da sua marca.",
+        nome: "Plano mensal",
+        resumo: "Vídeos novos toda semana para manter o Status e as redes sempre ativos.",
         preco: "R$ 550,00/mês",
+        botao: "Quero o plano mensal",
+        inclui: [
+          "8 vídeos por mês (2 por semana)",
+          "Status, produtos e promoções",
+          "Narração, música e textos animados",
+          "Formato vertical para Status, Reels e Stories",
+        ],
+      },
+      {
+        nome: "Vídeos todos os dias",
+        resumo: "Um vídeo novo por dia para a sua marca não sumir do Status.",
+        preco: "R$ 1.500,00/mês",
         botao: "Quero vídeos todos os dias",
         inclui: [
           "Um vídeo novo por dia",
           "Status, produtos e promoções",
-          "Narração, música e textos animados",
+          "Música e textos animados, a partir de modelos da sua marca",
           "Formato vertical para Status, Reels e Stories",
         ],
       },

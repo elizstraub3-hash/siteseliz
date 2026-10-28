@@ -272,6 +272,7 @@
           plano.destaque ? el("span", { class: "plano__selo" }, plano.destaque) : null,
           el("h3", { class: "plano__nome" }, plano.nome),
           el("p", { class: "plano__resumo" }, plano.resumo),
+          plano.precoAntigo ? el("p", { class: "plano__de" }, "de ", el("s", {}, plano.precoAntigo), " por") : null,
           el("p", { class: "plano__preco" }, plano.preco),
           el("ul", { class: "plano__lista" }, ...plano.inclui.map((item) => el("li", {}, item))),
           el("a", {
@@ -340,7 +341,7 @@
       ? el("a", { class: "inclui inclui--valores", href: "#valores" },
           el("h2", { class: "inclui__titulo" }, "Valores"),
           el("ul", {}, ...p.planos.map((plano) =>
-            el("li", {}, el("span", {}, plano.nome), el("strong", {}, plano.preco))
+            el("li", {}, el("span", {}, plano.nome), el("strong", {}, plano.precoAntigo ? el("s", { class: "valor-antigo" }, plano.precoAntigo) : null, plano.preco))
           )),
           el("span", { class: "servico__link" }, "Ver " + textos.planos.toLowerCase())
         )

@@ -380,6 +380,9 @@ p { margin: 0 0 1em; }
 .plano__resumo { color: var(--texto-suave); font-size: .96rem; }
 .plano--destaque .plano__resumo { color: #bdbdbd; }
 .plano__preco { font-family: var(--serifa); font-size: 3rem; font-weight: 600; line-height: 1; margin: .4rem 0 1.6rem; }
+.plano__de { margin: .4rem 0 -.1rem; font-size: .9rem; letter-spacing: .04em; opacity: .75; }
+.plano__de + .plano__preco { margin-top: .2rem; }
+.valor-antigo { font-weight: 400; font-size: .85em; opacity: .55; margin-right: .45rem; }
 .plano__lista { list-style: none; margin: 0 0 2rem; padding: 0; }
 .plano__lista li { padding: .6rem 0 .6rem 1.6rem; border-top: 1px solid var(--linha); position: relative; }
 .plano--destaque .plano__lista li { border-color: #333; }
@@ -575,3 +578,11 @@ p { margin: 0 0 1em; }
 
 /* Botão "Veja um exemplo" abaixo de uma referência com imagem */
 .slide__exemplo { display: flex; justify-content: center; margin: .9rem auto 0; width: fit-content; }
+
+/* Valores no quadro do topo: preço sempre numa linha só */
+.inclui--valores li strong { white-space: nowrap; }
+@media (max-width: 600px) {
+  .inclui--valores li { flex-wrap: wrap; column-gap: .6rem; }
+  .inclui--valores li strong { font-size: 1.25rem; }
+  .valor-antigo { display: inline-block; }
+}
