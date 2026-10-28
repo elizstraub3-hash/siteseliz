@@ -258,7 +258,7 @@ p { margin: 0 0 1em; }
   letter-spacing: .22em; text-transform: uppercase;
   color: var(--texto-suave); margin-bottom: 1.1rem;
 }
-.servicos { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.4rem; }
+.servicos { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 1.4rem; }
 .servicos--3 { grid-template-columns: repeat(3, 1fr); }
 .servico {
   display: flex; flex-direction: column;
@@ -361,6 +361,7 @@ p { margin: 0 0 1em; }
 /* Planos (valores) */
 .planos { display: grid; grid-template-columns: repeat(2, minmax(0, 420px)); justify-content: center; gap: 1.6rem; }
 .planos--um { grid-template-columns: minmax(0, 420px); }
+.planos--tres { grid-template-columns: repeat(3, minmax(0, 360px)); }
 .plano {
   position: relative;
   display: flex; flex-direction: column;
@@ -515,7 +516,7 @@ p { margin: 0 0 1em; }
   .extras__lista { grid-template-columns: 1fr; }
   .pag-hero__grid { grid-template-columns: 1fr; gap: 3rem; }
   .passos { grid-template-columns: repeat(2, 1fr); gap: 2rem 1.4rem; }
-  .planos { grid-template-columns: minmax(0, 480px); gap: 2.2rem; }
+  .planos, .planos--tres { grid-template-columns: minmax(0, 480px); gap: 2.2rem; }
 }
 
 @media (max-width: 760px) {

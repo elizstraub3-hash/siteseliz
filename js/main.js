@@ -266,7 +266,7 @@
 
   /* ---------- Planos (valores) das páginas de convite ---------- */
   function criarPlanos(p) {
-    return el("div", { class: "planos" + (p.planos.length === 1 ? " planos--um" : "") },
+    return el("div", { class: "planos" + (p.planos.length === 1 ? " planos--um" : p.planos.length === 3 ? " planos--tres" : "") },
       ...p.planos.map((plano) =>
         el("article", { class: "plano" + (plano.destaque ? " plano--destaque" : "") },
           plano.destaque ? el("span", { class: "plano__selo" }, plano.destaque) : null,

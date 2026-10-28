@@ -94,6 +94,68 @@ const PAGINAS = [
     ],
   },
   {
+    id: "videos",
+    grupo: "negocios",
+    nome: "Vídeos motion",
+    filtro: "Vídeos motion",
+    resumo: "Vídeos animados com narração e música para Status, Reels e produtos.",
+    titulo: "Vídeos que fazem o seu produto *aparecer*",
+    intro:
+      "Vídeos motion com narração, música e textos animados para divulgar produtos e serviços no Status do WhatsApp, nos Reels e nos Stories.",
+    inclui: [],
+    mockup: "celular",
+    orcamento: "vídeo motion",
+    textos: {
+      referencias: "Alguns vídeos que já criei. Cada vídeo é feito com a identidade da sua marca.",
+      planos: "Pacotes de vídeo",
+    },
+    planos: [
+      {
+        nome: "Vídeo avulso",
+        destaque: "Promoção Black",
+        resumo: "Um vídeo motion para divulgar um produto, serviço ou promoção.",
+        preco: "R$ 150,00",
+        botao: "Quero o meu vídeo",
+        inclui: [
+          "Vídeo motion com textos animados",
+          "Narração",
+          "Música",
+          "Formato vertical para Status, Reels e Stories",
+          "Entrega em 2 dias",
+        ],
+      },
+      {
+        nome: "Pacote com 3 vídeos",
+        resumo: "Três vídeos para divulgar produtos diferentes ou uma campanha.",
+        preco: "Consulte", // defina o valor (sugestão: R$ 390,00)
+        botao: "Quero o pacote",
+        inclui: [
+          "3 vídeos motion com textos animados",
+          "Narração e música em todos",
+          "Formato vertical para Status, Reels e Stories",
+        ],
+      },
+      {
+        nome: "Vídeos todos os dias",
+        resumo: "Conteúdo novo todo dia para o Status e as redes da sua marca.",
+        preco: "R$ 550,00/mês",
+        botao: "Quero vídeos todos os dias",
+        inclui: [
+          "Um vídeo novo por dia",
+          "Status, produtos e promoções",
+          "Narração, música e textos animados",
+          "Formato vertical para Status, Reels e Stories",
+        ],
+      },
+    ],
+    passos: [
+      ["Conte o que quer divulgar", "Produto, serviço ou promoção, e o que precisa aparecer no vídeo."],
+      ["Envie o material", "Fotos, logo, preços e informações."],
+      ["Aprove o vídeo", "Você confere o vídeo pronto antes da entrega final."],
+      ["Publique", "Receba o vídeo pronto para postar no Status, Reels e Stories."],
+    ],
+  },
+  {
     id: "catalogos",
     grupo: "negocios",
     nome: "Catálogos online",
@@ -289,8 +351,9 @@ const PASSOS_CONVITE = [
    No desktop aparecem 4 por linha; no celular, 2 por linha.              */
 const SUGESTOES = {
   sites:          ["lojas", "catalogos", "google", "links"],
-  lojas:          ["catalogos", "sites", "planilhas", "google"],
-  catalogos:      ["lojas", "cardapios", "sites", "links"],
+  lojas:          ["videos", "catalogos", "sites", "google"],
+  videos:         ["lojas", "catalogos", "sites", "links"],
+  catalogos:      ["videos", "lojas", "cardapios", "sites"],
   planilhas:      ["lojas", "catalogos", "sites", "links"],
   casamento:      ["aniversarios", "quinze-anos", "infantil", "planilhas"],
   infantil:       ["quinze-anos", "aniversarios", "casamento", "planilhas"],

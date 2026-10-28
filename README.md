@@ -11,6 +11,7 @@ Site estático (HTML + CSS + JS), sem instalação. Basta abrir `index.html` ou 
 | Lojas online | `lojas.html` |
 | Catálogos online | `catalogos.html` |
 | Planilhas no Excel | `planilhas.html` |
+| Vídeos motion | `videos.html` |
 | Convites de casamento | `casamento.html` |
 | Convites de aniversário infantil | `infantil.html` |
 | Convites de 15 anos | `quinze-anos.html` |
